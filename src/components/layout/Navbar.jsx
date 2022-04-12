@@ -1,10 +1,14 @@
 import { useState } from 'react'
+import { NavLink, Link, useNavigate } from 'react-router-dom'
+import { useUserContext } from '../../context/UserContext'
 import { FaCode, FaSun, FaMoon, FaBars } from 'react-icons/fa'
 import { CgClose } from 'react-icons/cg'
-import { NavLink, Link } from 'react-router-dom'
 
 function Navbar() {
   const [theme, setTheme] = useState(true)
+
+  const { user, logoutUser } = useUserContext()
+  const navigate = useNavigate()
 
   const changeTheme = () => {
     setTheme(!theme)
@@ -16,6 +20,11 @@ function Navbar() {
 
   const toggleMenu = () => {
     setToggled(!toggled)
+  }
+
+  const logoutUserHandler = () => {
+    logoutUser()
+    navigate('/')
   }
 
   return (
@@ -31,12 +40,31 @@ function Navbar() {
           {/* Desktop menu */}
           <div className='flex justify-end gap-1'>
             <div className=' hidden md:flex gap-2'>
-              <NavLink to='/' className='btn btn-ghost btn-sm rounded-btn'>
-                Home
-              </NavLink>
+              {!user && (
+                <NavLink to='/' className='btn btn-ghost btn-sm rounded-btn'>
+                  Home
+                </NavLink>
+              )}
+              {user && (
+                <NavLink
+                  to='/dashboard'
+                  className='btn btn-ghost btn-sm rounded-btn'
+                >
+                  Dashboard
+                </NavLink>
+              )}
               <NavLink to='/about' className='btn btn-ghost btn-sm rounded-btn'>
                 About
               </NavLink>
+              {user && (
+                <button
+                  onClick={logoutUserHandler}
+                  className='btn btn-ghost btn-sm rounded-btn'
+                >
+                  Log Out
+                </button>
+              )}
+              {user && <p className=' mt-1 mx-2'>Hello {user.displayName}</p>}
               <button
                 onClick={changeTheme}
                 className='btn btn-ghost btn-sm rounded-btn text-xl'
