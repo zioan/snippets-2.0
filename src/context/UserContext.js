@@ -9,7 +9,8 @@ import {
   signInWithPopup,
   GoogleAuthProvider,
 } from 'firebase/auth'
-import { auth } from '../firebase/firebase'
+import { auth, db } from '../firebase/firebase'
+import { addDoc, collection } from 'firebase/firestore'
 
 const UserContext = createContext()
 
@@ -39,6 +40,12 @@ export const UserContextProvider = ({ children }) => {
         })
       })
       .then((res) => console.log(res))
+      .then(
+        addDoc(collection(db, 'users'), {
+          displayName: name,
+          email: email,
+        })
+      )
       .catch((err) => setError(err.message))
       .finally(() => setLoading(false))
   }
