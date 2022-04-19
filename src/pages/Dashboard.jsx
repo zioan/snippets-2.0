@@ -1,11 +1,11 @@
-// import {} from "react";
+import { useContext } from 'react';
 
-import NewSnippet from '../components/snippets/NewSnippet'
-import SnippetsList from '../components/snippets/SnippetsList'
-import { useUserContext } from '../context/UserContext'
+import NewSnippet from '../components/snippets/NewSnippet';
+import SnippetsList from '../components/snippets/SnippetsList';
+import UserContext from '../context/UserContext';
 
 function Dashboard() {
-  const { user } = useUserContext()
+  const { user } = useContext(UserContext);
 
   return (
     <>
@@ -13,7 +13,7 @@ function Dashboard() {
       {user && <NewSnippet />}
       {user && <SnippetsList />}
     </>
-  )
+  );
 }
 
-export default Dashboard
+export default Dashboard;

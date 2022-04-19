@@ -1,24 +1,20 @@
-import { useState } from 'react'
-import { useUserContext } from '../context/UserContext'
+import { useState, useContext } from 'react';
+import UserContext from '../context/UserContext';
 
 function Login() {
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
 
-  const { loginUser, error, user, signInWithGoogle } = useUserContext()
+  const { login } = useContext(UserContext);
 
   const loginHandler = async (e) => {
-    e.preventDefault()
+    e.preventDefault();
     try {
-      await loginUser(email, password)
+      await login(email, password);
     } catch (err) {
-      console.log(err)
+      console.log(err);
     }
-  }
-
-  const signInWithGoogleHangler = () => {
-    signInWithGoogle()
-  }
+  };
 
   return (
     <div className='card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100'>
@@ -60,12 +56,12 @@ function Login() {
           </div>
 
           {/* Errors */}
-          {error && <p className=' text-red-400'>{error}</p>}
+          {/* {error && <p className=' text-red-400'>{error}</p>} */}
         </div>
       </form>
 
       {/* Auth methods */}
-      <div className='flex flex-col w-full'>
+      {/* <div className='flex flex-col w-full'>
         <div className='divider mb-10'>or</div>
         <button
           className='login-with-google-btn btn btn-primary mx-8 mb-12'
@@ -73,9 +69,9 @@ function Login() {
         >
           Sign in with Google
         </button>
-      </div>
+      </div> */}
     </div>
-  )
+  );
 }
 
-export default Login
+export default Login;

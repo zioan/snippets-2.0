@@ -1,25 +1,25 @@
-import { useState } from 'react'
-import { useUserContext } from '../../context/UserContext'
-import Login from '../Login'
-import Register from '../Register'
+import { useState, useContext } from 'react';
+import UserContext from '../../context/UserContext';
+import Login from '../Login';
+import Register from '../Register';
 
 function Auth() {
-  const [authToggle, setAuthToggle] = useState(true)
-  const { loginUser, user } = useUserContext()
+  const [authToggle, setAuthToggle] = useState(true);
+  const { loginUser, user } = useContext(UserContext);
 
   const changeAuthMode = () => {
-    setAuthToggle(!authToggle)
-  }
+    setAuthToggle(!authToggle);
+  };
 
   const testAccountLogin = async () => {
-    const email = 'john@test.com'
-    const password = 'asdasd123123'
+    const email = 'john@test.com';
+    const password = 'asdasd123123';
     try {
-      await loginUser(email, password)
+      await loginUser(email, password);
     } catch (err) {
-      console.log(err)
+      console.log(err);
     }
-  }
+  };
 
   return (
     <div className='hero py-20 bg-base-200'>
@@ -55,7 +55,7 @@ function Auth() {
         </div>
       )}
     </div>
-  )
+  );
 }
 
-export default Auth
+export default Auth;

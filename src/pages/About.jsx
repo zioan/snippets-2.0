@@ -1,10 +1,10 @@
-import { useContext } from 'react'
-import { useUserContext } from '../context/UserContext'
+import { useContext } from 'react';
+import UserContext from '../context/UserContext';
 
 function About() {
-  const { registerUser, error, user, logoutUser } = useUserContext()
+  const { registerUser, error, user, logoutUser } = useContext(UserContext);
 
-  console.log(user)
+  console.log(user);
   // console.log(user.displayName)
   return (
     <>
@@ -14,7 +14,7 @@ function About() {
       {user && 'hi '}
       {user && user.displayName}
     </>
-  )
+  );
 }
 
-export default About
+export default About;

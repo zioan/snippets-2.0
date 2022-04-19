@@ -1,16 +1,16 @@
-import { createContext, useState, useEffect } from 'react'
+import { createContext, useState, useEffect } from 'react';
 
-const SnippetContext = createContext()
+const SnippetContext = createContext();
 
-export const SnippetContextProvider = ({ children }) => {
-  const [snippets, setSnippets] = useState([])
+export const SnippetProvider = ({ children }) => {
+  const [snippets, setSnippets] = useState([]);
 
   const updateSnippets = (data) => {
     // console.log(data)
     setSnippets((prevState) => {
-      return [prevState, data]
-    })
-  }
+      return [prevState, data];
+    });
+  };
 
   return (
     <SnippetContext.Provider
@@ -21,7 +21,7 @@ export const SnippetContextProvider = ({ children }) => {
     >
       {children}
     </SnippetContext.Provider>
-  )
-}
+  );
+};
 
-export default SnippetContext
+export default SnippetContext;

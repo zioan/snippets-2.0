@@ -1,12 +1,12 @@
-import { useNavigate } from 'react-router-dom'
-
-import Auth from '../components/layout/Auth'
-import Spinner from '../components/layout/Spinner'
-import { useUserContext } from '../context/UserContext'
+import { useContext } from 'react';
+import { useNavigate } from 'react-router-dom';
+import Auth from '../components/layout/Auth';
+import Spinner from '../components/layout/Spinner';
+import UserContext from '../context/UserContext';
 
 function Home() {
-  const { user, loading, logoutUser } = useUserContext()
-  const navigate = useNavigate()
+  const { user, loading, logoutUser } = useContext(UserContext);
+  const navigate = useNavigate();
 
   return (
     <>
@@ -37,7 +37,7 @@ function Home() {
       )}
       {!user && <Auth />}
     </>
-  )
+  );
 }
 
-export default Home
+export default Home;

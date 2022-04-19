@@ -1,17 +1,17 @@
-import React from 'react'
-import ReactDOM from 'react-dom/client'
-import App from './App'
-import { UserContextProvider } from './context/UserContext'
-import { SnippetContextProvider } from './context/SnippetContext'
-import './index.css'
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import App from './App';
+import { UserProvider } from './context/UserContext';
+import { SnippetProvider } from './context/SnippetContext';
+import './index.css';
 
-const rootElement = document.getElementById('root')
-const root = ReactDOM.createRoot(rootElement)
+const rootElement = document.getElementById('root');
+const root = ReactDOM.createRoot(rootElement);
 
 root.render(
-  <UserContextProvider>
-    <SnippetContextProvider>
+  <UserProvider>
+    <SnippetProvider>
       <App />
-    </SnippetContextProvider>
-  </UserContextProvider>
-)
+    </SnippetProvider>
+  </UserProvider>
+);

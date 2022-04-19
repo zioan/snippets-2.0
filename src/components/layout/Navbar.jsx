@@ -1,31 +1,31 @@
-import { useState } from 'react'
-import { NavLink, Link, useNavigate } from 'react-router-dom'
-import { useUserContext } from '../../context/UserContext'
-import { FaCode, FaSun, FaMoon, FaBars } from 'react-icons/fa'
-import { CgClose } from 'react-icons/cg'
+import { useState, useContext } from 'react';
+import { NavLink, Link, useNavigate } from 'react-router-dom';
+import UserContext from '../../context/UserContext';
+import { FaCode, FaSun, FaMoon, FaBars } from 'react-icons/fa';
+import { CgClose } from 'react-icons/cg';
 
 function Navbar() {
-  const [theme, setTheme] = useState(true)
+  const [theme, setTheme] = useState(true);
 
-  const { user, logoutUser } = useUserContext()
-  const navigate = useNavigate()
+  const { user, logoutUser } = useContext(UserContext);
+  const navigate = useNavigate();
 
   const changeTheme = () => {
-    setTheme(!theme)
-    theme && document.documentElement.setAttribute('data-theme', 'light')
-    !theme && document.documentElement.setAttribute('data-theme', 'dark')
-  }
+    setTheme(!theme);
+    theme && document.documentElement.setAttribute('data-theme', 'light');
+    !theme && document.documentElement.setAttribute('data-theme', 'dark');
+  };
 
-  const [toggled, setToggled] = useState(false)
+  const [toggled, setToggled] = useState(false);
 
   const toggleMenu = () => {
-    setToggled(!toggled)
-  }
+    setToggled(!toggled);
+  };
 
   const logoutUserHandler = () => {
-    logoutUser()
-    navigate('/')
-  }
+    logoutUser();
+    navigate('/');
+  };
 
   return (
     <nav className=' navbar mb-12 shadow-lg bg-neutral text-neutral-content'>
@@ -104,8 +104,8 @@ function Navbar() {
               </NavLink>
               <button
                 onClick={() => {
-                  changeTheme()
-                  toggleMenu()
+                  changeTheme();
+                  toggleMenu();
                 }}
                 className='btn btn-ghost btn-sm rounded-btn text-xl'
               >
@@ -116,7 +116,7 @@ function Navbar() {
         </div>
       </div>
     </nav>
-  )
+  );
 }
 
-export default Navbar
+export default Navbar;

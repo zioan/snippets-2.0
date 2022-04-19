@@ -1,34 +1,35 @@
-import { useState } from 'react'
-import { useUserContext } from '../context/UserContext'
+import { useState, useContext } from 'react';
+import UserContext from '../context/UserContext';
 
 function Register() {
-  const [email, setEmail] = useState('')
-  const [name, setName] = useState('')
-  const [password, setPassword] = useState('')
-  const [confirmPassword, setConfirmPassword] = useState('')
-  const [showError, setShowError] = useState(false)
+  const [email, setEmail] = useState('');
+  const [name, setName] = useState('');
+  const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const [showError, setShowError] = useState(false);
 
-  const { registerUser, error, user, signInWithGoogle } = useUserContext()
+  const { registerUser, error, user, signInWithGoogle } =
+    useContext(UserContext);
 
   const registerUserHandler = async (e) => {
-    e.preventDefault()
+    e.preventDefault();
 
     if (password !== confirmPassword) {
-      setShowError(true)
-      return
+      setShowError(true);
+      return;
     } else {
-      setShowError(false)
+      setShowError(false);
     }
     try {
-      await registerUser(email, name, password)
+      await registerUser(email, name, password);
     } catch (err) {
-      console.log(err)
+      console.log(err);
     }
-  }
+  };
 
   const signInWithGoogleHangler = () => {
-    signInWithGoogle()
-  }
+    signInWithGoogle();
+  };
 
   return (
     <div className='card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100'>
@@ -109,7 +110,7 @@ function Register() {
         </button>
       </div>
     </div>
-  )
+  );
 }
 
-export default Register
+export default Register;
