@@ -1,20 +1,35 @@
 import { useContext } from 'react';
-
+import { Link } from 'react-router-dom';
 import NewSnippet from '../components/snippets/NewSnippet';
+import NewTag from '../components/snippets/NewTag';
+import SearchSnippet from '../components/snippets/SearchSnippet';
 import SnippetsList from '../components/snippets/SnippetsList';
 import AuthContext from '../context/AuthContext';
-import UserContext from '../context/UserContext';
 
 function Dashboard() {
-  // const { user } = useContext(UserContext);
   const { user } = useContext(AuthContext);
 
   return (
     <>
-      <h2>Dashboard</h2>
-      {/* <h1>{user.name}</h1> */}
-      {user && <NewSnippet />}
-      {user && <SnippetsList />}
+      {!user && (
+        <p className=' text-2xl'>
+          You need to
+          <Link className=' underline text-red-400 mx-2' to='/'>
+            log in!
+          </Link>
+        </p>
+      )}
+      {user && (
+        <main>
+          <h2>Dashboard</h2>
+          <SearchSnippet />
+          <h3>Tags</h3>
+          <NewTag />
+          <h3>Snippets</h3>
+          <NewSnippet />
+          <SnippetsList />
+        </main>
+      )}
     </>
   );
 }

@@ -1,29 +1,26 @@
 import { useEffect, useContext } from 'react';
 import SnippetContext from '../../context/SnippetContext';
 import AuthContext from '../../context/AuthContext';
-import axios from 'axios';
-import server from '../../server';
+import TagContext from '../../context/TagContext';
+import SnippetTemplate from './SnippetTemplate';
 
 function SnippetsList() {
   const { user } = useContext(AuthContext);
 
   const { snippets, getSnippets } = useContext(SnippetContext);
+  const { getTags } = useContext(TagContext);
 
   useEffect(() => {
     getSnippets();
+    getTags();
   }, []);
 
   return (
     <>
       <h2>SnippetsList</h2>
+      {snippets.length < 1 && <p>No Snippets found!</p>}
       {snippets.map((snippet) => {
-        return (
-          <div key={snippet.id}>
-            <h3>{snippet.title}</h3>
-            <h4>{snippet.tag}</h4>
-            <h4>{snippet.code}</h4>
-          </div>
-        );
+        return <SnippetTemplate key={snippet.id} snippet={snippet} />;
       })}
     </>
   );

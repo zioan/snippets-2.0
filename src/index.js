@@ -4,7 +4,8 @@ import App from './App';
 import { AuthProvider } from './context/AuthContext';
 import { UserProvider } from './context/UserContext';
 import { SnippetProvider } from './context/SnippetContext';
-import './index.css';
+import { TagProvider } from './context/TagContext';
+import './index.scss';
 
 const rootElement = document.getElementById('root');
 const root = ReactDOM.createRoot(rootElement);
@@ -13,7 +14,9 @@ root.render(
   <AuthProvider>
     <UserProvider>
       <SnippetProvider>
-        <App />
+        <TagProvider>
+          <App />
+        </TagProvider>
       </SnippetProvider>
     </UserProvider>
   </AuthProvider>
