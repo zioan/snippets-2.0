@@ -1,12 +1,13 @@
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
-import Footer from './components/layout/Footer'
-import Navbar from './components/layout/Navbar'
-import Home from './pages/Home'
-import NotFound from './pages/NotFound'
-import About from './pages/About'
-import Dashboard from './pages/Dashboard'
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import axios from 'axios';
+import Footer from './components/layout/Footer';
+import Navbar from './components/layout/Navbar';
+import Home from './pages/Home';
+import NotFound from './pages/NotFound';
+import About from './pages/About';
+import Dashboard from './pages/Dashboard';
 
-// import './firebase/firebase'
+axios.defaults.withCredentials = true;
 
 function App() {
   return (
@@ -26,7 +27,7 @@ function App() {
         <Footer />
       </div>
     </Router>
-  )
+  );
 }
 
-export default App
+export default App;

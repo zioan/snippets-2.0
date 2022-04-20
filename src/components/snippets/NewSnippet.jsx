@@ -1,33 +1,16 @@
 import { useState, useContext } from 'react';
-import UserContext from '../../context/UserContext';
-
-// import { db } from '../../firebase/firebase';
-// import { addDoc, updateDoc, collection } from 'firebase/firestore';
+import SnippetContext from '../../context/SnippetContext';
 
 function NewSnippet() {
   const [tag, setTag] = useState('');
   const [title, setTitle] = useState('');
   const [code, setCode] = useState('');
 
-  const { user } = useContext(UserContext);
+  const { newSnippet } = useContext(SnippetContext);
 
-  const saveSnippetHandler = async (e) => {
+  const saveSnippetHandler = (e) => {
     e.preventDefault();
-    await user;
-
-    // const snippetsCollection = collection(db, 'snippets');
-    // try {
-    //   await addDoc(collection(db, 'snippets'), {
-    //     // await addDoc(collection(snippetsCollection, { merge: true }), {
-    //     // { merge: true }
-    //     snippetId: user.uid,
-    //     tag,
-    //     title,
-    //     code,
-    //   });
-    // } catch (err) {
-    //   console.error(err);
-    // }
+    newSnippet(title, tag, code);
   };
 
   return (
@@ -36,15 +19,15 @@ function NewSnippet() {
       <form onSubmit={saveSnippetHandler}>
         <input
           type='text'
-          placeholder='tag'
-          value={tag}
-          onChange={(e) => setTag(e.target.value)}
-        />
-        <input
-          type='text'
           placeholder='title'
           value={title}
           onChange={(e) => setTitle(e.target.value)}
+        />
+        <input
+          type='text'
+          placeholder='tag'
+          value={tag}
+          onChange={(e) => setTag(e.target.value)}
         />
         <input
           type='text'

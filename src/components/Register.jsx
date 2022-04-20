@@ -1,4 +1,6 @@
 import { useState, useContext } from 'react';
+import { useNavigate } from 'react-router-dom';
+import AuthContext from '../context/AuthContext';
 import UserContext from '../context/UserContext';
 
 function Register() {
@@ -6,30 +8,39 @@ function Register() {
   const [name, setName] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
-  const [showError, setShowError] = useState(false);
+  const [showError, setShowError] = useState('');
 
-  const { registerUser, error, user, signInWithGoogle } =
-    useContext(UserContext);
+  const { registerUser, error } = useContext(UserContext);
+  const { user } = useContext(AuthContext);
+  const navigate = useNavigate();
 
   const registerUserHandler = async (e) => {
     e.preventDefault();
 
     if (password !== confirmPassword) {
-      setShowError(true);
+      setShowError('Password do not match!');
+      setInterval(() => {
+        setShowError('');
+      }, 4000);
       return;
     } else {
-      setShowError(false);
+      setShowError('');
     }
     try {
-      await registerUser(email, name, password);
+      await registerUser(name, email, password);
+      // navigate('/dashboard');
     } catch (err) {
       console.log(err);
     }
+
+    if (user) {
+      navigate('/dashboard');
+    }
   };
 
-  const signInWithGoogleHangler = () => {
-    signInWithGoogle();
-  };
+  // const signInWithGoogleHangler = () => {
+  //   signInWithGoogle();
+  // };
 
   return (
     <div className='card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100'>
@@ -89,8 +100,9 @@ function Register() {
           </div>
 
           {/* Errors */}
-          {showError && <p className=' text-red-400'>Password do not match!</p>}
+          {/* {showError && <p className=' text-red-400'>Password do not match!</p>} */}
           {error && <p className=' text-red-400'>{error}</p>}
+          {showError && <p className=' text-red-400'>{showError}</p>}
 
           <div className='form-control mt-6'>
             <button type='submit' className='btn btn-primary'>
@@ -100,7 +112,7 @@ function Register() {
         </div>
       </form>
       {/* Auth methods */}
-      <div className='flex flex-col w-full'>
+      {/* <div className='flex flex-col w-full'>
         <div className='divider mb-10'>or</div>
         <button
           className='login-with-google-btn btn btn-primary mx-8 mb-12'
@@ -108,7 +120,7 @@ function Register() {
         >
           Sign in with Google
         </button>
-      </div>
+      </div> */}
     </div>
   );
 }

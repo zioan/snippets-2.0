@@ -5,7 +5,7 @@ import Register from '../Register';
 
 function Auth() {
   const [authToggle, setAuthToggle] = useState(true);
-  const { loginUser, user } = useContext(UserContext);
+  const { login, user } = useContext(UserContext);
 
   const changeAuthMode = () => {
     setAuthToggle(!authToggle);
@@ -15,7 +15,7 @@ function Auth() {
     const email = 'john@test.com';
     const password = 'asdasd123123';
     try {
-      await loginUser(email, password);
+      await login(email, password);
     } catch (err) {
       console.log(err);
     }

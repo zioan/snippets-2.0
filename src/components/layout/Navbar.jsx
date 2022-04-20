@@ -3,11 +3,14 @@ import { NavLink, Link, useNavigate } from 'react-router-dom';
 import UserContext from '../../context/UserContext';
 import { FaCode, FaSun, FaMoon, FaBars } from 'react-icons/fa';
 import { CgClose } from 'react-icons/cg';
+import AuthContext from '../../context/AuthContext';
 
 function Navbar() {
   const [theme, setTheme] = useState(true);
 
-  const { user, logoutUser } = useContext(UserContext);
+  const { logoutUser } = useContext(UserContext);
+  const { user } = useContext(AuthContext);
+
   const navigate = useNavigate();
 
   const changeTheme = () => {
@@ -64,7 +67,7 @@ function Navbar() {
                   Log Out
                 </button>
               )}
-              {user && <p className=' mt-1 mx-2'>Hello {user.displayName}</p>}
+              {user && <p className=' mt-1 mx-2'>Hello {user.name}</p>}
               <button
                 onClick={changeTheme}
                 className='btn btn-ghost btn-sm rounded-btn text-xl'

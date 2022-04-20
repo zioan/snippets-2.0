@@ -2,10 +2,12 @@ import { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Auth from '../components/layout/Auth';
 import Spinner from '../components/layout/Spinner';
+import AuthContext from '../context/AuthContext';
 import UserContext from '../context/UserContext';
 
 function Home() {
-  const { user, loading, logoutUser } = useContext(UserContext);
+  const { loading, logoutUser } = useContext(UserContext);
+  const { user } = useContext(AuthContext);
   const navigate = useNavigate();
 
   return (
@@ -13,9 +15,7 @@ function Home() {
       {loading && <Spinner />}
       {user && (
         <section>
-          <h2 className=' text-3xl mb-6'>
-            You are logged in as {user.displayName}.
-          </h2>
+          <h2 className=' text-3xl mb-6'>You are logged in as {user.name}.</h2>
           <p>
             You can go to your{' '}
             <button
