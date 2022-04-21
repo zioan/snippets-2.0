@@ -64,16 +64,6 @@ export const SnippetProvider = ({ children }) => {
     }
   };
 
-  const searchSnippets = (query) => {
-    let sorted = [...snippets];
-
-    sorted = sorted.filter((snippet) =>
-      snippet.title.toLowerCase().includes(query)
-    );
-    console.log(sorted);
-    // setSnippets(sorted);
-  };
-
   return (
     <SnippetContext.Provider
       value={{
@@ -82,7 +72,6 @@ export const SnippetProvider = ({ children }) => {
         newSnippet,
         editSnippet,
         deleteSnippet,
-        searchSnippets,
       }}
     >
       {children}

@@ -103,19 +103,21 @@ function SnippetTemplate({ snippet }) {
         className={editorMode ? 'tooltip tooltip-left w-full  mr-6' : ''}
         data-tip='Edit code'
       >
-        <CodeEditor
-          disabled={editorMode ? false : true}
-          className='code-editor mb-4'
-          value={editorMode ? code : snippet.code}
-          onChange={(e) => setCode(e.target.value)}
-          language='jsx'
-          placeholder='Please enter your code.'
-          padding={15}
-          style={{
-            fontFamily:
-              'ui-monospace,SFMono-Regular,SF Mono,Consolas,Liberation Mono,Menlo,monospace',
-          }}
-        />
+        <div className='max-h-[500px] overflow-auto  mb-4'>
+          <CodeEditor
+            disabled={editorMode ? false : true}
+            className='code-editor'
+            value={editorMode ? code : snippet.code}
+            onChange={(e) => setCode(e.target.value)}
+            language='jsx'
+            placeholder='Please enter your code.'
+            padding={15}
+            style={{
+              fontFamily:
+                'ui-monospace,SFMono-Regular,SF Mono,Consolas,Liberation Mono,Menlo,monospace',
+            }}
+          />
+        </div>
       </div>
 
       {/* Bottom buttons */}

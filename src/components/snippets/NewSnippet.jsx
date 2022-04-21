@@ -66,25 +66,27 @@ function NewSnippet({ onSaveHandler }) {
         </select>
 
         {/* Snippet code. react-textarea-code-editor component */}
-        <CodeEditor
-          disabled={false}
-          className='code-editor mb-4'
-          value={code}
-          onChange={(e) => setCode(e.target.value)}
-          language='jsx'
-          placeholder='Please enter your code.'
-          padding={15}
-          style={{
-            fontFamily:
-              'ui-monospace,SFMono-Regular,SF Mono,Consolas,Liberation Mono,Menlo,monospace',
-          }}
-        />
+        <div className='max-h-96 overflow-auto'>
+          <CodeEditor
+            disabled={false}
+            className='code-editor '
+            value={code}
+            onChange={(e) => setCode(e.target.value)}
+            language='jsx'
+            placeholder='Please enter your code.'
+            padding={15}
+            style={{
+              fontFamily:
+                'ui-monospace,SFMono-Regular,SF Mono,Consolas,Liberation Mono,Menlo,monospace',
+            }}
+          />
+        </div>
 
         {/* Display errors if empty fields */}
         {error && <p className=' text-red-400 mb-4'>{error}</p>}
 
-        <button className='btn' type='submit'>
-          <FiSave className=' text-2xl' />
+        <button className='btn mt-4' type='submit'>
+          <FiSave className=' text-2xl ' />
         </button>
       </form>
     </div>

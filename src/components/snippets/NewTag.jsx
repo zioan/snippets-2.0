@@ -29,11 +29,11 @@ function NewTag() {
           onChange={(e) => setTag(e.target.value)}
         />
 
-        {error && <p className=' text-red-400'>{error}</p>}
-
         <button type='submit' className='btn'>
           Save Tag
         </button>
+
+        {error && <p className=' text-red-400'>{error}</p>}
       </form>
     </div>
   );
