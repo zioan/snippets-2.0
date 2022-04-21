@@ -2,7 +2,7 @@ import { useContext } from 'react';
 import TagContext from '../../context/TagContext';
 
 function TagsEditor() {
-  const { tags, getTags, deleteTag } = useContext(TagContext);
+  const { tags, deleteTag } = useContext(TagContext);
 
   const deleteHandler = (id, tag) => {
     if (window.confirm(`Are you sure you want to delete "${tag}"?`)) {

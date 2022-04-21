@@ -5,7 +5,6 @@ import NewTag from '../components/snippets/NewTag';
 import SearchSnippet from '../components/snippets/SearchSnippet';
 import SnippetsList from '../components/snippets/SnippetsList';
 import AuthContext from '../context/AuthContext';
-import { FiSave } from 'react-icons/fi';
 import TagsEditor from '../components/snippets/TagsEditor';
 
 function Dashboard() {
@@ -26,6 +25,7 @@ function Dashboard() {
 
   return (
     <>
+      {/* If user is not logged in */}
       {!user && (
         <p className=' text-2xl'>
           You need to
@@ -34,9 +34,13 @@ function Dashboard() {
           </Link>
         </p>
       )}
+
+      {/* If user is logged in */}
       {user && (
         <main>
           <SearchSnippet />
+
+          {/* New snippet */}
           <div
             className={
               addNewSnippet ? 'px-6 py-3 my-6 bg-slate-700' : 'py-3 my-6'
@@ -52,21 +56,26 @@ function Dashboard() {
               {addNewSnippet ? 'Cancel' : 'Add New Snippet'}
             </button>
           </div>
-          {/* <!-- The button to open modal --> */}
+
+          {/* Modal for editing tags */}
+          {/* Button to open modal */}
           <label htmlFor='my-modal-3' className='btn modal-button'>
             open modal
           </label>
 
-          {/* <!-- Put this part before </body> tag --> */}
+          {/*  Put this part before </body> tag  */}
           <input type='checkbox' id='my-modal-3' className='modal-toggle' />
           <div className='modal'>
             <div className='modal-box relative'>
+              {/* Button to close modal */}
               <label
                 htmlFor='my-modal-3'
                 className='btn btn-sm btn-circle absolute right-2 top-2'
               >
                 ✕
               </label>
+
+              {/* Modal content */}
               <h3 className=' text-2xl text-center mb-8'>Tags Editor</h3>
               <NewTag />
 
@@ -76,6 +85,8 @@ function Dashboard() {
               </div>
             </div>
           </div>
+
+          {/* Snippets */}
           <SnippetsList />
         </main>
       )}

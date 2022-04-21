@@ -5,23 +5,24 @@ import { BsTrash } from 'react-icons/bs';
 import { FiEdit3, FiCopy, FiSave } from 'react-icons/fi';
 
 function SnippetTemplate({ snippet }) {
-  const [editorMode, setEditorMode] = useState(false);
-  const { getSnippets, editSnippet, deleteSnippet } =
-    useContext(SnippetContext);
+  const { editSnippet, deleteSnippet } = useContext(SnippetContext);
 
+  // initialize state for snippet update
+  const [editorMode, setEditorMode] = useState(false);
   const [title, setTitle] = useState('');
   const [code, setCode] = useState('');
   const [error, setError] = useState('');
 
   const saveToClipboard = () => navigator.clipboard.writeText(snippet.code);
 
+  // update state for snippet update
   const editHandler = () => {
     setEditorMode(!editorMode);
     setTitle(snippet.title);
     setCode(snippet.code);
-    // editSnippet()
   };
 
+  // function for updating snippet
   const saveSnippet = () => {
     if (title.length < 1 || code.length < 1) {
       setError('Title or code snippet cannot be empty');
@@ -40,6 +41,7 @@ function SnippetTemplate({ snippet }) {
     setCode('');
   };
 
+  // delete snippet on confirm
   const deleteHandler = () => {
     if (window.confirm(`Are you sure you want to delete "${snippet.title}"?`)) {
       deleteSnippet(snippet.id);
@@ -47,6 +49,7 @@ function SnippetTemplate({ snippet }) {
   };
 
   return (
+    // Handle both (snippet render from fetch) and (snippet update)
     <div
       className={
         editorMode
@@ -54,6 +57,7 @@ function SnippetTemplate({ snippet }) {
           : 'px-6 py-3 mt-4 mb-8 bg-slate-700'
       }
     >
+      {/* Warning show on snippet edit mode */}
       {editorMode && <p className=' text-xl text-red-400 mb-3'>Edit snippet</p>}
       <div className=' flex justify-between'>
         {/* Snippet title not in edit mode */}
@@ -95,6 +99,7 @@ function SnippetTemplate({ snippet }) {
         </div>
       </div>
       <div
+        // tooltip display in edit mode only
         className={editorMode ? 'tooltip tooltip-left w-full  mr-6' : ''}
         data-tip='Edit code'
       >

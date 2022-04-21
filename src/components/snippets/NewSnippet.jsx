@@ -15,6 +15,7 @@ function NewSnippet({ onSaveHandler }) {
 
   const saveSnippetHandler = (e) => {
     e.preventDefault();
+
     if (title.length < 1) {
       setError('Title cannot be empty');
       return;
@@ -24,6 +25,7 @@ function NewSnippet({ onSaveHandler }) {
       setError('Code cannot be empty');
       return;
     }
+
     try {
       newSnippet(title, selectedTag, code);
       setError('');
@@ -39,6 +41,7 @@ function NewSnippet({ onSaveHandler }) {
     <div className='mb-4 flex flex-col'>
       <h2>Create new snippet</h2>
       <form onSubmit={saveSnippetHandler}>
+        {/* Snippet title */}
         <input
           type='text'
           placeholder='Title'
@@ -46,7 +49,8 @@ function NewSnippet({ onSaveHandler }) {
           value={title}
           onChange={(e) => setTitle(e.target.value)}
         />
-        {/* <br /> */}
+
+        {/* Snippet tag */}
         <select
           className='select select-bordered w-full max-w-xs  mb-4'
           onChange={(e) => setSelectedTag(e.target.value)}
@@ -60,6 +64,8 @@ function NewSnippet({ onSaveHandler }) {
             );
           })}
         </select>
+
+        {/* Snippet code. react-textarea-code-editor component */}
         <CodeEditor
           disabled={false}
           className='code-editor mb-4'
@@ -74,7 +80,9 @@ function NewSnippet({ onSaveHandler }) {
           }}
         />
 
+        {/* Display errors if empty fields */}
         {error && <p className=' text-red-400 mb-4'>{error}</p>}
+
         <button className='btn' type='submit'>
           <FiSave className=' text-2xl' />
         </button>

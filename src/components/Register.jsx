@@ -12,11 +12,14 @@ function Register() {
 
   const { registerUser, error } = useContext(UserContext);
   const { user } = useContext(AuthContext);
+
   const navigate = useNavigate();
 
   const registerUserHandler = async (e) => {
     e.preventDefault();
 
+    // Check confirmation password
+    // If no match set error and clear error after 4s
     if (password !== confirmPassword) {
       setShowError('Password do not match!');
       setInterval(() => {
@@ -26,26 +29,25 @@ function Register() {
     } else {
       setShowError('');
     }
+
+    // register new user
     try {
       await registerUser(name, email, password);
-      // navigate('/dashboard');
     } catch (err) {
       console.log(err);
     }
 
+    // After user successfuly register redirect to '/dashboard'
     if (user) {
       navigate('/dashboard');
     }
   };
 
-  // const signInWithGoogleHangler = () => {
-  //   signInWithGoogle();
-  // };
-
   return (
     <div className='card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100'>
       <form onSubmit={registerUserHandler}>
         <div className='card-body'>
+          {/* User name field */}
           <div className='form-control'>
             <label className='label'>
               <span className='label-text'>Name</span>
@@ -59,6 +61,8 @@ function Register() {
               onChange={(e) => setName(e.target.value)}
             />
           </div>
+
+          {/* Email field */}
           <div className='form-control'>
             <label className='label'>
               <span className='label-text'>Email</span>
@@ -72,6 +76,8 @@ function Register() {
               onChange={(e) => setEmail(e.target.value)}
             />
           </div>
+
+          {/* Password field */}
           <div className='form-control'>
             <label className='label'>
               <span className='label-text'>Password</span>
@@ -85,6 +91,8 @@ function Register() {
               onChange={(e) => setPassword(e.target.value)}
             />
           </div>
+
+          {/* Confirm password field */}
           <div className='form-control'>
             <label className='label'>
               <span className='label-text'>Confirm Password</span>
@@ -99,9 +107,11 @@ function Register() {
             />
           </div>
 
-          {/* Errors */}
-          {/* {showError && <p className=' text-red-400'>Password do not match!</p>} */}
+          {/* Display errors if email already registered */}
+          {/* Handled by UserContext */}
           {error && <p className=' text-red-400'>{error}</p>}
+
+          {/* Display errors for form filds requirements and validation */}
           {showError && <p className=' text-red-400'>{showError}</p>}
 
           <div className='form-control mt-6'>
@@ -111,16 +121,6 @@ function Register() {
           </div>
         </div>
       </form>
-      {/* Auth methods */}
-      {/* <div className='flex flex-col w-full'>
-        <div className='divider mb-10'>or</div>
-        <button
-          className='login-with-google-btn btn btn-primary mx-8 mb-12'
-          onClick={signInWithGoogleHangler}
-        >
-          Sign in with Google
-        </button>
-      </div> */}
     </div>
   );
 }

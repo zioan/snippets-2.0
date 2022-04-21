@@ -10,6 +10,7 @@ function SnippetsList() {
   const { snippets, getSnippets } = useContext(SnippetContext);
   const { getTags } = useContext(TagContext);
 
+  // fetch snippets and tags on component load / reload
   useEffect(() => {
     getSnippets();
     getTags();
@@ -18,6 +19,7 @@ function SnippetsList() {
   return (
     <>
       {snippets.length < 1 && <p>No Snippets found!</p>}
+
       {snippets.map((snippet) => {
         return <SnippetTemplate key={snippet.id} snippet={snippet} />;
       })}

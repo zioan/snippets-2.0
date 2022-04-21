@@ -22,10 +22,12 @@ function Auth() {
   };
 
   return (
+    // Layout for authentication if user is not logged in
     <div className='hero py-20 bg-base-200'>
       {!user && (
         <div className='hero-content flex-col lg:gap-20 lg:flex-row-reverse'>
           <div className='text-center lg:text-left'>
+            {/* Demo account */}
             <h1 className='text-3xl mb-4 lg:mb-10'>
               Click{' '}
               <span
@@ -36,6 +38,8 @@ function Auth() {
               </span>{' '}
               for demo account.
             </h1>
+
+            {/* Switch text for components login / register */}
             <h2 className=' text-5xl font-bold mb-8'>
               {authToggle ? 'Login' : 'Register'}
             </h2>
@@ -45,6 +49,8 @@ function Auth() {
             </p>
             <p className='mb-4 lg:mb-0'>
               {authToggle ? 'No Account? ' : 'Already have an account? '}
+
+              {/* Switch components login / register */}
               <button onClick={changeAuthMode} className=' underline text-xl'>
                 {authToggle ? 'Register Now!' : 'Login instead!'}
               </button>

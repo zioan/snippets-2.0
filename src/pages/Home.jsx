@@ -13,6 +13,8 @@ function Home() {
   return (
     <>
       {loading && <Spinner />}
+
+      {/* If user is logged in */}
       {user && (
         <section>
           <h2 className=' text-3xl mb-6'>You are logged in as {user.name}.</h2>
@@ -35,6 +37,8 @@ function Home() {
           </p>
         </section>
       )}
+
+      {/* Load Auth layout component if no user / guest */}
       {!user && <Auth />}
     </>
   );

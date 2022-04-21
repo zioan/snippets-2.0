@@ -1,16 +1,11 @@
-import { useState, useContext, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useState, useContext } from 'react';
 import UserContext from '../context/UserContext';
-import AuthContext from '../context/AuthContext';
 
 function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
   const { login, error } = useContext(UserContext);
-  const { user } = useContext(AuthContext);
-
-  const navigate = useNavigate();
 
   const loginHandler = async (e) => {
     e.preventDefault();
@@ -19,24 +14,13 @@ function Login() {
     } catch (err) {
       console.log(err);
     }
-    // console.log('user:', user);
-    // if (user !== null) {
-    //   console.log(user, '22');
-    // }
-    // navigate('/dashboard');
   };
-
-  // let status = user !== null ? false : true;
-
-  // useEffect(() => {
-  //   navigate('/dashboard');
-  //   console.log(user, '22');
-  // }, [status]);
 
   return (
     <div className='card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100'>
       <form onSubmit={loginHandler}>
         <div className='card-body'>
+          {/* Email field */}
           <div className='form-control'>
             <label className='label'>
               <span className='label-text'>Email</span>
@@ -49,6 +33,8 @@ function Login() {
               onChange={(e) => setEmail(e.target.value)}
             />
           </div>
+
+          {/* Password field */}
           <div className='form-control'>
             <label className='label'>
               <span className='label-text'>Password</span>
@@ -66,28 +52,17 @@ function Login() {
               </a>
             </label>
           </div>
+
           {error && <p className=' text-red-400'>{error}</p>}
+
+          {/* Login button */}
           <div className='form-control mt-6'>
             <button type='submit' className='btn btn-primary'>
               Login
             </button>
           </div>
-
-          {/* Errors */}
-          {/* {error && <p className=' text-red-400'>{error}</p>} */}
         </div>
       </form>
-
-      {/* Auth methods */}
-      {/* <div className='flex flex-col w-full'>
-        <div className='divider mb-10'>or</div>
-        <button
-          className='login-with-google-btn btn btn-primary mx-8 mb-12'
-          onClick={signInWithGoogleHangler}
-        >
-          Sign in with Google
-        </button>
-      </div> */}
     </div>
   );
 }
