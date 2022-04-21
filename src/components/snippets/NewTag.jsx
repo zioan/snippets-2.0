@@ -18,7 +18,7 @@ function NewTag() {
   };
 
   return (
-    <>
+    <div className='mb-6'>
       <h2>Create new tag</h2>
       <form onSubmit={submitHandler}>
         <input
@@ -33,7 +33,7 @@ function NewTag() {
           Save Tag
         </button>
       </form>
-    </>
+    </div>
   );
 }
 

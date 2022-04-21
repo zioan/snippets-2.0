@@ -15,6 +15,7 @@ export const SnippetProvider = ({ children }) => {
       const sortedSnippetsByDate = snippetsRes.data.sort((a, b) => {
         return new Date(b.timeStamp) - new Date(a.timeStamp);
       });
+      setSnippets([]);
       setSnippets(sortedSnippetsByDate);
       console.log(snippetsRes.data);
     } catch (error) {
@@ -32,6 +33,22 @@ export const SnippetProvider = ({ children }) => {
     try {
       await axios.post(`${server}/snippets/add`, newSnippet);
       getSnippets();
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const editSnippet = async (snippetData) => {
+    const updatedSnippetData = {
+      user_id: user.id,
+      title: snippetData.title,
+      tag: snippetData.tag,
+      code: snippetData.code,
+    };
+    try {
+      axios
+        .put(`${server}/snippets/update/${snippetData.id}`, updatedSnippetData)
+        .then(getSnippets());
     } catch (error) {
       console.log(error);
     }
@@ -63,6 +80,7 @@ export const SnippetProvider = ({ children }) => {
         snippets,
         getSnippets,
         newSnippet,
+        editSnippet,
         deleteSnippet,
         searchSnippets,
       }}

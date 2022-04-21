@@ -32,12 +32,21 @@ export const TagProvider = ({ children }) => {
     }
   };
 
+  const deleteTag = async (id) => {
+    try {
+      await axios.delete(`${server}/tags/delete/${id}`).then(getTags());
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <TagContext.Provider
       value={{
         tags,
         getTags,
         newTag,
+        deleteTag,
       }}
     >
       {children}

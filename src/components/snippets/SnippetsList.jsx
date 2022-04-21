@@ -17,7 +17,6 @@ function SnippetsList() {
 
   return (
     <>
-      <h2>SnippetsList</h2>
       {snippets.length < 1 && <p>No Snippets found!</p>}
       {snippets.map((snippet) => {
         return <SnippetTemplate key={snippet.id} snippet={snippet} />;
