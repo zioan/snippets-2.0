@@ -33,6 +33,12 @@ function Dashboard() {
     });
   });
 
+  const handleKey = (e) => {
+    if (e.key === 'Escape') {
+      setAddNewSnippet(false);
+    }
+  };
+
   return (
     <section>
       {/* If user is not logged in */}
@@ -50,6 +56,7 @@ function Dashboard() {
         <section className=''>
           <div
             {...bindEditorPosition()}
+            onKeyDown={handleKey}
             className=' z-30 cursor-pointer md:relative'
             style={{
               top: editorPos.y,
@@ -68,7 +75,7 @@ function Dashboard() {
                   <>
                     <div
                       className='tooltip float-right'
-                      data-tip='Reposition this window'
+                      data-tip='Esc key also works :)'
                     >
                       <h4 className='badge p-4 bg-red-400 text-slate-50 border-0 '>
                         Drag and Drop
