@@ -11,33 +11,6 @@ import { useDrag } from 'react-use-gesture';
 
 function Dashboard() {
   const { user } = useContext(AuthContext);
-  const [windowToggler, setWindowToggler] = useState(false);
-  const [editorPos, setEditorPos] = useState({ x: 0, y: 0 });
-
-  const newSnippetHandler = () => {
-    // if (!addNewSnippet) {
-    //   window.scrollTo({ left: 0, top: 0 });
-    // }
-
-    setWindowToggler(!windowToggler);
-  };
-
-  const onSaveHandler = () => {
-    setWindowToggler(false);
-  };
-
-  const bindEditorPosition = useDrag((params) => {
-    setEditorPos({
-      x: params.offset[0],
-      y: params.offset[1],
-    });
-  });
-
-  const handleKey = (e) => {
-    if (e.key === 'Escape') {
-      setWindowToggler(false);
-    }
-  };
 
   return (
     <section>
@@ -53,76 +26,51 @@ function Dashboard() {
 
       {/* If user is logged in */}
       {user && (
-        <section className=''>
-          {/* New snippet window with drag and drop */}
-          {/* A label is used as container for Escape key event to work properly*/}
+        <section>
+          {/* Modal for new snippets */}
+          {/* Button to open modal */}
           <label
-            {...bindEditorPosition()}
-            onKeyDown={handleKey}
-            className=' z-30 cursor-pointer md:relative'
-            style={
-              windowToggler
-                ? {
-                    top: editorPos.y,
-                    left: editorPos.x,
-                    userSelect: 'none',
-                  }
-                : { display: 'none' }
-            }
+            htmlFor='my-modal-1'
+            className='btn btn-success btn-circle modal-button fixed bottom-40 right-4 z-20'
           >
-            <div className=' md:absolute w-full md:w-[600px] max-w-[600px]  z-30'>
-              {/* New snippet */}
-              <div
-                className={
-                  windowToggler ? 'px-6 py-3 my-6 bg-slate-600' : 'py-3 my-6'
-                }
-              >
-                {windowToggler && (
-                  <>
-                    <div
-                      className='tooltip float-right'
-                      data-tip='Esc key also works :)'
-                    >
-                      <h4 className='badge p-4 bg-red-400 text-slate-50 border-0 '>
-                        Drag and Drop
-                      </h4>
-                    </div>
-                    <NewTag />
-                    <NewSnippet onSaveHandler={onSaveHandler} />
-                  </>
-                )}
-              </div>
-            </div>
+            <VscNewFile className=' text-2xl' />
           </label>
 
-          {/* buttons here */}
-          <button
-            className='btn btn-success btn-circle fixed bottom-40 right-4 z-20'
-            onClick={newSnippetHandler}
-          >
-            {windowToggler ? (
-              <VscClose className=' text-2xl' />
-            ) : (
-              <VscNewFile className=' text-2xl' />
-            )}
-          </button>
+          {/*  Put this part before </body> tag  */}
+          <input type='checkbox' id='my-modal-1' className='modal-toggle' />
+          <div className='modal'>
+            <div className='modal-box relative'>
+              {/* Button to close modal */}
+              <label
+                htmlFor='my-modal-1'
+                className='btn btn-sm btn-circle absolute right-2 top-2'
+              >
+                ✕
+              </label>
+
+              {/* Modal content */}
+              <h3 className=' text-2xl text-center mb-8'>Add new snippet</h3>
+              <NewTag />
+              <NewSnippet />
+            </div>
+          </div>
 
           {/* Modal for editing tags */}
           {/* Button to open modal */}
           <label
-            htmlFor='my-modal-3'
+            htmlFor='my-modal-2'
             className='btn btn-success btn-circle modal-button fixed bottom-20 right-4 z-20'
           >
             <BsTags className=' text-2xl' />
           </label>
 
           {/*  Put this part before </body> tag  */}
-          <input type='checkbox' id='my-modal-3' className='modal-toggle' />
+          <input type='checkbox' id='my-modal-2' className='modal-toggle' />
           <div className='modal'>
             <div className='modal-box relative'>
               {/* Button to close modal */}
               <label
-                htmlFor='my-modal-3'
+                htmlFor='my-modal-2'
                 className='btn btn-sm btn-circle absolute right-2 top-2'
               >
                 ✕

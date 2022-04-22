@@ -4,7 +4,7 @@ import TagContext from '../../context/TagContext';
 import CodeEditor from '@uiw/react-textarea-code-editor';
 import { FiSave } from 'react-icons/fi';
 
-function NewSnippet({ onSaveHandler }) {
+function NewSnippet() {
   const [title, setTitle] = useState('');
   const [code, setCode] = useState('');
   const [selectedTag, setSelectedTag] = useState('No Tag');
@@ -31,7 +31,6 @@ function NewSnippet({ onSaveHandler }) {
       setError('');
       setTitle('');
       setCode('');
-      onSaveHandler();
     } catch (error) {
       console.log(error);
     }
