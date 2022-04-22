@@ -16,14 +16,13 @@ function SnippetsList() {
   }, []);
 
   // Search functionality
-  let sorted = [...snippets];
 
+  let sorted = [...snippets];
   sorted = sorted.filter(
     (snippet) =>
       snippet.title.toLowerCase().includes(searchQuery) ||
       snippet.code.toLowerCase().includes(searchQuery)
   );
-  console.log(sorted);
 
   return (
     <>

@@ -11,11 +11,12 @@ export const SnippetProvider = ({ children }) => {
 
   const getSnippets = async () => {
     try {
+      // Needs to watch for updating bug ?!
+      // bug happening here !
       const snippetsRes = await axios.get(`${server}/snippets/all/${user.id}`);
-      const sortedSnippetsByDate = snippetsRes.data.sort((a, b) => {
+      const sortedSnippetsByDate = await snippetsRes.data.sort((a, b) => {
         return new Date(b.timeStamp) - new Date(a.timeStamp);
       });
-      setSnippets([]);
       setSnippets(sortedSnippetsByDate);
       console.log(snippetsRes.data);
     } catch (error) {
@@ -31,14 +32,15 @@ export const SnippetProvider = ({ children }) => {
       code,
     };
     try {
-      await axios.post(`${server}/snippets/add`, newSnippet);
-      getSnippets();
+      await axios
+        .post(`${server}/snippets/add`, newSnippet)
+        .then(() => getSnippets());
     } catch (error) {
       console.log(error);
     }
   };
 
-  const editSnippet = async (snippetData) => {
+  const updateSnippet = async (snippetData) => {
     const updatedSnippetData = {
       user_id: user.id,
       title: snippetData.title,
@@ -48,7 +50,7 @@ export const SnippetProvider = ({ children }) => {
     try {
       axios
         .put(`${server}/snippets/update/${snippetData.id}`, updatedSnippetData)
-        .then(getSnippets());
+        .then(() => getSnippets());
     } catch (error) {
       console.log(error);
     }
@@ -57,8 +59,9 @@ export const SnippetProvider = ({ children }) => {
   const deleteSnippet = async (id) => {
     const userId = { user_id: user.id };
     try {
-      await axios.post(`${server}/snippets/delete/${id}`, userId);
-      getSnippets();
+      await axios
+        .post(`${server}/snippets/delete/${id}`, userId)
+        .then(() => getSnippets());
     } catch (error) {
       console.log(error);
     }
@@ -70,7 +73,7 @@ export const SnippetProvider = ({ children }) => {
         snippets,
         getSnippets,
         newSnippet,
-        editSnippet,
+        updateSnippet,
         deleteSnippet,
       }}
     >

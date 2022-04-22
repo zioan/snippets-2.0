@@ -11,7 +11,7 @@ import { useDrag } from 'react-use-gesture';
 
 function Dashboard() {
   const { user } = useContext(AuthContext);
-  const [addNewSnippet, setAddNewSnippet] = useState(false);
+  const [windowToggler, setWindowToggler] = useState(false);
   const [editorPos, setEditorPos] = useState({ x: 0, y: 0 });
 
   const newSnippetHandler = () => {
@@ -19,11 +19,11 @@ function Dashboard() {
     //   window.scrollTo({ left: 0, top: 0 });
     // }
 
-    setAddNewSnippet(!addNewSnippet);
+    setWindowToggler(!windowToggler);
   };
 
   const onSaveHandler = () => {
-    setAddNewSnippet(false);
+    setWindowToggler(false);
   };
 
   const bindEditorPosition = useDrag((params) => {
@@ -35,7 +35,7 @@ function Dashboard() {
 
   const handleKey = (e) => {
     if (e.key === 'Escape') {
-      setAddNewSnippet(false);
+      setWindowToggler(false);
     }
   };
 
@@ -54,24 +54,30 @@ function Dashboard() {
       {/* If user is logged in */}
       {user && (
         <section className=''>
-          <div
+          {/* New snippet window with drag and drop */}
+          {/* A label is used as container for Escape key event to work properly*/}
+          <label
             {...bindEditorPosition()}
             onKeyDown={handleKey}
             className=' z-30 cursor-pointer md:relative'
-            style={{
-              top: editorPos.y,
-              left: editorPos.x,
-              userSelect: 'none',
-            }}
+            style={
+              windowToggler
+                ? {
+                    top: editorPos.y,
+                    left: editorPos.x,
+                    userSelect: 'none',
+                  }
+                : { display: 'none' }
+            }
           >
             <div className=' md:absolute w-full md:w-[600px] max-w-[600px]  z-30'>
               {/* New snippet */}
               <div
                 className={
-                  addNewSnippet ? 'px-6 py-3 my-6 bg-slate-600' : 'py-3 my-6'
+                  windowToggler ? 'px-6 py-3 my-6 bg-slate-600' : 'py-3 my-6'
                 }
               >
-                {addNewSnippet && (
+                {windowToggler && (
                   <>
                     <div
                       className='tooltip float-right'
@@ -85,51 +91,54 @@ function Dashboard() {
                     <NewSnippet onSaveHandler={onSaveHandler} />
                   </>
                 )}
-                <button
-                  className='btn btn-success btn-circle fixed bottom-40 right-4 z-20'
-                  onClick={newSnippetHandler}
-                >
-                  {addNewSnippet ? (
-                    <VscClose className=' text-2xl' />
-                  ) : (
-                    <VscNewFile className=' text-2xl' />
-                  )}
-                </button>
               </div>
+            </div>
+          </label>
 
-              {/* Modal for editing tags */}
-              {/* Button to open modal */}
+          {/* buttons here */}
+          <button
+            className='btn btn-success btn-circle fixed bottom-40 right-4 z-20'
+            onClick={newSnippetHandler}
+          >
+            {windowToggler ? (
+              <VscClose className=' text-2xl' />
+            ) : (
+              <VscNewFile className=' text-2xl' />
+            )}
+          </button>
+
+          {/* Modal for editing tags */}
+          {/* Button to open modal */}
+          <label
+            htmlFor='my-modal-3'
+            className='btn btn-success btn-circle modal-button fixed bottom-20 right-4 z-20'
+          >
+            <BsTags className=' text-2xl' />
+          </label>
+
+          {/*  Put this part before </body> tag  */}
+          <input type='checkbox' id='my-modal-3' className='modal-toggle' />
+          <div className='modal'>
+            <div className='modal-box relative'>
+              {/* Button to close modal */}
               <label
                 htmlFor='my-modal-3'
-                className='btn btn-success btn-circle modal-button fixed bottom-20 right-4 z-20'
+                className='btn btn-sm btn-circle absolute right-2 top-2'
               >
-                <BsTags className=' text-2xl' />
+                ✕
               </label>
 
-              {/*  Put this part before </body> tag  */}
-              <input type='checkbox' id='my-modal-3' className='modal-toggle' />
-              <div className='modal'>
-                <div className='modal-box relative'>
-                  {/* Button to close modal */}
-                  <label
-                    htmlFor='my-modal-3'
-                    className='btn btn-sm btn-circle absolute right-2 top-2'
-                  >
-                    ✕
-                  </label>
+              {/* Modal content */}
+              <h3 className=' text-2xl text-center mb-8'>Tags Editor</h3>
+              <NewTag />
 
-                  {/* Modal content */}
-                  <h3 className=' text-2xl text-center mb-8'>Tags Editor</h3>
-                  <NewTag />
-
-                  <h4>Click tags to delete</h4>
-                  <div className=' flex gap-2 flex-wrap mt-4'>
-                    <TagsEditor />
-                  </div>
-                </div>
+              <h4>Click tags to delete</h4>
+              <div className=' flex gap-2 flex-wrap mt-4'>
+                <TagsEditor />
               </div>
             </div>
           </div>
+
           {/* Snippets */}
           <SnippetsList />
         </section>

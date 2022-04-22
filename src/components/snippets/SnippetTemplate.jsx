@@ -5,7 +5,7 @@ import { BsTrash } from 'react-icons/bs';
 import { FiEdit3, FiCopy, FiSave } from 'react-icons/fi';
 
 function SnippetTemplate({ snippet }) {
-  const { editSnippet, deleteSnippet } = useContext(SnippetContext);
+  const { updateSnippet, deleteSnippet } = useContext(SnippetContext);
 
   // initialize state for snippet update
   const [editorMode, setEditorMode] = useState(false);
@@ -35,7 +35,7 @@ function SnippetTemplate({ snippet }) {
       title,
       code,
     };
-    editSnippet(snippetData);
+    updateSnippet(snippetData);
     setEditorMode(false);
     setTitle('');
     setCode('');
