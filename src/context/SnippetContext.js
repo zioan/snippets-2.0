@@ -7,6 +7,7 @@ const SnippetContext = createContext();
 
 export const SnippetProvider = ({ children }) => {
   const [snippets, setSnippets] = useState([]);
+  const [editWarning, setEditWarning] = useState(false);
   const { user } = useContext(AuthContext);
 
   const getSnippets = async () => {
@@ -56,6 +57,10 @@ export const SnippetProvider = ({ children }) => {
     }
   };
 
+  const showEditWarning = (warningState) => {
+    setEditWarning(warningState);
+  };
+
   const deleteSnippet = async (id) => {
     const userId = { user_id: user.id };
     try {
@@ -74,6 +79,8 @@ export const SnippetProvider = ({ children }) => {
         getSnippets,
         newSnippet,
         updateSnippet,
+        editWarning,
+        showEditWarning,
         deleteSnippet,
       }}
     >

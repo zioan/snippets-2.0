@@ -1,5 +1,5 @@
 function Footer() {
-  const footerYear = new Date().getFullYear()
+  const footerYear = new Date().getFullYear();
   return (
     <footer className=' p-6 bg-gray-700 text-primary-content text-center'>
       <p>
@@ -9,7 +9,7 @@ function Footer() {
         </a>
       </p>
     </footer>
-  )
+  );
 }
 
-export default Footer
+export default Footer;

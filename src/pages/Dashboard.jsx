@@ -1,16 +1,30 @@
-import { useContext, useState } from 'react';
+import { useContext, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import NewSnippet from '../components/snippets/NewSnippet';
 import NewTag from '../components/snippets/NewTag';
 import SnippetsList from '../components/snippets/SnippetsList';
 import AuthContext from '../context/AuthContext';
 import TagsEditor from '../components/snippets/TagsEditor';
-import { VscNewFile, VscClose } from 'react-icons/vsc';
+import { VscNewFile } from 'react-icons/vsc';
 import { BsTags } from 'react-icons/bs';
-import { useDrag } from 'react-use-gesture';
 
 function Dashboard() {
   const { user } = useContext(AuthContext);
+
+  const snippetRef = useRef();
+  const tagRef = useRef();
+
+  const closeSnippetsModal = (e) => {
+    if (e.key === 'Escape') {
+      snippetRef.current.click();
+    }
+  };
+
+  const closeTagsModal = (e) => {
+    if (e.key === 'Escape') {
+      tagRef.current.click();
+    }
+  };
 
   return (
     <section>
@@ -31,19 +45,28 @@ function Dashboard() {
           {/* Button to open modal */}
           <label
             htmlFor='my-modal-1'
-            className='btn btn-success btn-circle modal-button fixed bottom-40 right-4 z-20'
+            className='btn btn-success btn-circle modal-button fixed bottom-48 right-4 z-20'
           >
             <VscNewFile className=' text-2xl' />
           </label>
 
           {/*  Put this part before </body> tag  */}
-          <input type='checkbox' id='my-modal-1' className='modal-toggle' />
-          <div className='modal'>
-            <div className='modal-box relative'>
+          <input
+            type='checkbox'
+            id='my-modal-1'
+            className='modal-toggle '
+            onKeyDown={closeSnippetsModal}
+          />
+          <div className='modal '>
+            <div
+              className='modal-box relative box-shadow'
+              onKeyDown={closeSnippetsModal}
+            >
               {/* Button to close modal */}
               <label
                 htmlFor='my-modal-1'
                 className='btn btn-sm btn-circle absolute right-2 top-2'
+                ref={snippetRef}
               >
                 ✕
               </label>
@@ -59,19 +82,28 @@ function Dashboard() {
           {/* Button to open modal */}
           <label
             htmlFor='my-modal-2'
-            className='btn btn-success btn-circle modal-button fixed bottom-20 right-4 z-20'
+            className='btn btn-success btn-circle modal-button fixed bottom-28 right-4 z-20'
           >
             <BsTags className=' text-2xl' />
           </label>
 
           {/*  Put this part before </body> tag  */}
-          <input type='checkbox' id='my-modal-2' className='modal-toggle' />
+          <input
+            type='checkbox'
+            id='my-modal-2'
+            className='modal-toggle'
+            onKeyDown={closeTagsModal}
+          />
           <div className='modal'>
-            <div className='modal-box relative'>
+            <div
+              className='modal-box relative box-shadow'
+              onKeyDown={closeTagsModal}
+            >
               {/* Button to close modal */}
               <label
                 htmlFor='my-modal-2'
                 className='btn btn-sm btn-circle absolute right-2 top-2'
+                ref={tagRef}
               >
                 ✕
               </label>

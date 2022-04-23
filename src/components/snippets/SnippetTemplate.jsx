@@ -1,11 +1,12 @@
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import CodeEditor from '@uiw/react-textarea-code-editor';
 import SnippetContext from '../../context/SnippetContext';
 import { BsTrash } from 'react-icons/bs';
 import { FiEdit3, FiCopy, FiSave } from 'react-icons/fi';
 
 function SnippetTemplate({ snippet }) {
-  const { updateSnippet, deleteSnippet } = useContext(SnippetContext);
+  const { updateSnippet, deleteSnippet, showEditWarning } =
+    useContext(SnippetContext);
 
   // initialize state for snippet update
   const [editorMode, setEditorMode] = useState(false);
@@ -21,6 +22,14 @@ function SnippetTemplate({ snippet }) {
     setTitle(snippet.title);
     setCode(snippet.code);
   };
+
+  useEffect(() => {
+    if (editorMode) {
+      showEditWarning(true);
+    } else {
+      showEditWarning(false);
+    }
+  }, [editorMode]);
 
   // function for updating snippet
   const saveSnippet = () => {
@@ -51,15 +60,13 @@ function SnippetTemplate({ snippet }) {
   return (
     // Handle both (snippet render from fetch) and (snippet update)
     <div
-      className={
-        editorMode
-          ? 'px-6 py-3 mt-4 mb-8 bg-slate-800'
-          : 'px-6 py-3 mt-4 mb-8 bg-slate-700'
-      }
+      className={'p-4 md:p-10 mt-4 mb-8 bg-base-200 rounded-[16px] box-shadow'}
     >
       {/* Warning show on snippet edit mode */}
-      {editorMode && <p className=' text-xl text-red-400 mb-3'>Edit snippet</p>}
-      <div className=' flex justify-between'>
+      {editorMode && (
+        <p className=' text-2xl text-success text-center mb-6'>Edit snippet</p>
+      )}
+      <div className=' flex justify-between '>
         {/* Snippet title not in edit mode */}
         {!editorMode && (
           <h3 className=' text-xl font-bold mb-4 border-b-slate-800 border-b-2'>
@@ -85,7 +92,7 @@ function SnippetTemplate({ snippet }) {
         )}
 
         {/* Snippet tag */}
-        <div className=' flex items-center mb-2'>
+        <div className=' flex items-center mb-4'>
           <div className='tooltip ' data-tip='Snippet tag'>
             <h4 className='badge p-4 '>{snippet.tag}</h4>
           </div>
@@ -106,7 +113,7 @@ function SnippetTemplate({ snippet }) {
         <div className='max-h-[500px] overflow-auto  mb-4'>
           <CodeEditor
             disabled={editorMode ? false : true}
-            className='code-editor'
+            className='code-editor bg-opacity-10 '
             value={editorMode ? code : snippet.code}
             onChange={(e) => setCode(e.target.value)}
             language='jsx'
@@ -128,7 +135,7 @@ function SnippetTemplate({ snippet }) {
           data-tip={editorMode ? 'Save snippet' : 'Edit snippet'}
         >
           <button
-            className='btn mr-4'
+            className={editorMode ? 'btn text-success mr-4' : 'btn mr-4'}
             onClick={editorMode ? saveSnippet : editHandler}
           >
             {editorMode ? (

@@ -7,6 +7,7 @@ const TagContext = createContext();
 
 export const TagProvider = ({ children }) => {
   const [tags, setTags] = useState([]);
+  const [filteredTagValue, setFilteredTagValue] = useState('');
   const { user } = useContext(AuthContext);
 
   const getTags = async () => {
@@ -40,6 +41,10 @@ export const TagProvider = ({ children }) => {
     }
   };
 
+  const updateFilteredTag = (tag) => {
+    setFilteredTagValue(tag);
+  };
+
   return (
     <TagContext.Provider
       value={{
@@ -47,6 +52,8 @@ export const TagProvider = ({ children }) => {
         getTags,
         newTag,
         deleteTag,
+        filteredTagValue,
+        updateFilteredTag,
       }}
     >
       {children}

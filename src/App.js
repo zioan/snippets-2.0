@@ -12,8 +12,9 @@ axios.defaults.withCredentials = true;
 function App() {
   return (
     <Router>
-      <div className='flex flex-col justify-between h-screen'>
-        <Navbar />
+      <div className='flex flex-col justify-between  min-h-screen'>
+        {/* <div className='min-h-screen'> */}
+        <Navbar className='row-start-1' />
         <main className=' container mx-auto px-3 pb-12 relative'>
           <Routes>
             <Route exact path='/' element={<Home />} />

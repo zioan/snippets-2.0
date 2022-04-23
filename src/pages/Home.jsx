@@ -16,7 +16,7 @@ function Home() {
 
       {/* If user is logged in */}
       {user && (
-        <section>
+        <section className=' mt-10'>
           <h2 className=' text-3xl mb-6'>You are logged in as {user.name}.</h2>
           <p>
             You can go to your{' '}

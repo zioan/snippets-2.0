@@ -9,6 +9,7 @@ function NewSnippet() {
   const [code, setCode] = useState('');
   const [selectedTag, setSelectedTag] = useState('No Tag');
   const [error, setError] = useState('');
+  const [successMessage, setSuccessMessage] = useState('');
 
   const { newSnippet } = useContext(SnippetContext);
   const { tags } = useContext(TagContext);
@@ -31,6 +32,10 @@ function NewSnippet() {
       setError('');
       setTitle('');
       setCode('');
+      setSuccessMessage('Snippet created');
+      setInterval(() => {
+        setSuccessMessage('');
+      }, 4000);
     } catch (error) {
       console.log(error);
     }
@@ -38,18 +43,19 @@ function NewSnippet() {
 
   return (
     <div className='mb-4 flex flex-col'>
-      <h2>Create new snippet</h2>
+      <label className='block'>Create new snippet</label>
       <form onSubmit={saveSnippetHandler}>
         {/* Snippet title */}
         <input
           type='text'
-          placeholder='Title'
+          placeholder='Enter snippet title'
           className='input input-bordered w-full max-w-xs block mb-4'
           value={title}
           onChange={(e) => setTitle(e.target.value)}
         />
 
         {/* Snippet tag */}
+        <label className='block'>Select tag</label>
         <select
           className='select select-bordered w-full max-w-xs  mb-4'
           onChange={(e) => setSelectedTag(e.target.value)}
@@ -66,13 +72,14 @@ function NewSnippet() {
 
         {/* Snippet code. react-textarea-code-editor component */}
         <div className='max-h-96 overflow-auto'>
+          <label className='block'>Code editor</label>
           <CodeEditor
             disabled={false}
             className='code-editor '
             value={code}
             onChange={(e) => setCode(e.target.value)}
             language='jsx'
-            placeholder='Please enter your code.'
+            placeholder='Paste your code here'
             padding={15}
             style={{
               fontFamily:
@@ -82,7 +89,10 @@ function NewSnippet() {
         </div>
 
         {/* Display errors if empty fields */}
-        {error && <p className=' text-red-400 mb-4'>{error}</p>}
+        {error && <p className=' text-red-400 text-center mt-4'>{error}</p>}
+        {successMessage && (
+          <p className=' text-success text-center mt-4'>{successMessage}</p>
+        )}
 
         <button className='btn mt-4' type='submit'>
           <FiSave className=' text-2xl ' />
