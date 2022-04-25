@@ -7,19 +7,39 @@ const SnippetContext = createContext();
 
 export const SnippetProvider = ({ children }) => {
   const [snippets, setSnippets] = useState([]);
+  const [sharedSnippet, setSharedSnippet] = useState(null);
   const [editWarning, setEditWarning] = useState(false);
+  const [loading, setLoading] = useState(false);
   const { user } = useContext(AuthContext);
 
   const getSnippets = async () => {
     try {
       // Needs to watch for updating bug ?!
       // bug happening here !
+      setLoading(true);
       const snippetsRes = await axios.get(`${server}/snippets/all/${user.id}`);
       const sortedSnippetsByDate = await snippetsRes.data.sort((a, b) => {
         return new Date(b.timeStamp) - new Date(a.timeStamp);
       });
       setSnippets(sortedSnippetsByDate);
-      console.log(snippetsRes.data);
+      setLoading(false);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const getSharedSnippet = async (user_name, user_id, snippet_id) => {
+    try {
+      setLoading(true);
+      const sharedSnippetData = await axios.get(
+        `${server}/snippets/${user_name}/${user_id}/${snippet_id}`
+      );
+      if (sharedSnippetData.data.length > 0) {
+        setSharedSnippet(sharedSnippetData.data);
+        setLoading(false);
+      } else {
+        setSharedSnippet(null);
+      }
     } catch (error) {
       console.log(error);
     }
@@ -76,12 +96,15 @@ export const SnippetProvider = ({ children }) => {
     <SnippetContext.Provider
       value={{
         snippets,
+        loading,
         getSnippets,
         newSnippet,
         updateSnippet,
         editWarning,
         showEditWarning,
         deleteSnippet,
+        sharedSnippet,
+        getSharedSnippet,
       }}
     >
       {children}

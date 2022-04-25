@@ -18,7 +18,7 @@ function About() {
           designed mainly for large screens.{' '}
         </p>
         <br />
-        <h2 className=' text-3xl'>
+        <h2 className=' text-2xl'>
           Proudly made by{' '}
           <a
             className='underline'

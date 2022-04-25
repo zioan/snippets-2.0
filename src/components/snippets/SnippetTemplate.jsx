@@ -1,16 +1,23 @@
 import { useContext, useEffect, useState } from 'react';
 import CodeEditor from '@uiw/react-textarea-code-editor';
 import SnippetContext from '../../context/SnippetContext';
-import { BsTrash } from 'react-icons/bs';
+import { BsTrash, BsShareFill } from 'react-icons/bs';
 import { FiEdit3, FiCopy, FiSave } from 'react-icons/fi';
+import TagContext from '../../context/TagContext';
+import AuthContext from '../../context/AuthContext';
+import NewTag from './NewTag';
+import server from '../../server';
 
 function SnippetTemplate({ snippet }) {
   const { updateSnippet, deleteSnippet, showEditWarning } =
     useContext(SnippetContext);
+  const { tags } = useContext(TagContext);
+  const { user } = useContext(AuthContext);
 
   // initialize state for snippet update
   const [editorMode, setEditorMode] = useState(false);
   const [title, setTitle] = useState('');
+  const [tag, setTag] = useState('');
   const [code, setCode] = useState('');
   const [error, setError] = useState('');
 
@@ -20,6 +27,7 @@ function SnippetTemplate({ snippet }) {
   const editHandler = () => {
     setEditorMode(!editorMode);
     setTitle(snippet.title);
+    setTag(snippet.tag);
     setCode(snippet.code);
   };
 
@@ -40,13 +48,14 @@ function SnippetTemplate({ snippet }) {
 
     const snippetData = {
       id: snippet.id,
-      tag: snippet.tag,
+      tag,
       title,
       code,
     };
     updateSnippet(snippetData);
     setEditorMode(false);
     setTitle('');
+    setTag('');
     setCode('');
   };
 
@@ -57,14 +66,45 @@ function SnippetTemplate({ snippet }) {
     }
   };
 
+  //Create snippet share link
+  const createShareLink = () => {
+    const shareLink = `https://snippets.zioan.com/shared/${user.name}/${user.id}/${snippet.id}`;
+    navigator.clipboard.writeText(shareLink);
+  };
+
   return (
     // Handle both (snippet render from fetch) and (snippet update)
     <div
       className={'p-4 md:p-10 mt-4 mb-8 bg-base-200 rounded-[16px] box-shadow'}
     >
-      {/* Warning show on snippet edit mode */}
       {editorMode && (
-        <p className=' text-2xl text-success text-center mb-6'>Edit snippet</p>
+        <>
+          {/* Warning show on snippet edit mode */}
+          <p className=' text-2xl text-success text-center mb-6'>
+            Edit snippet
+          </p>
+
+          {/* Tag selector on snippet edit mode */}
+          <NewTag />
+          <p className=' inline'>Snippet tag:</p>
+          <h4 className='badge  p-4 m-2'>{tag}</h4>
+          {tags.length > 0 && (
+            <p className=' mt-4'>Click to change snippet tag: </p>
+          )}
+          <div className='mb-4'>
+            {tags.map((item) => {
+              return (
+                <h4
+                  key={item.id}
+                  className='badge p-4 cursor-pointer m-2'
+                  onClick={() => setTag(item.tag)}
+                >
+                  {item.tag}
+                </h4>
+              );
+            })}
+          </div>
+        </>
       )}
       <div className=' flex justify-between '>
         {/* Snippet title not in edit mode */}
@@ -80,6 +120,7 @@ function SnippetTemplate({ snippet }) {
             className='tooltip tooltip-left w-full  mr-6 mb-4'
             data-tip='Edit title'
           >
+            <p className=' text-left mb-1'>Snippet title:</p>
             <input
               type='text'
               placeholder='Title'
@@ -91,12 +132,22 @@ function SnippetTemplate({ snippet }) {
           </div>
         )}
 
-        {/* Snippet tag */}
         <div className=' flex items-center mb-4'>
-          <div className='tooltip ' data-tip='Snippet tag'>
-            <h4 className='badge p-4 '>{snippet.tag}</h4>
-          </div>
+          {/* Show snippet tag NOT in edit mode */}
+          {!editorMode && (
+            <>
+              <div className='tooltip ' data-tip='Snippet tag'>
+                <h4 className='badge p-4 '>{snippet.tag}</h4>
+              </div>
+            </>
+          )}
 
+          {/* Share button */}
+          <div className='tooltip' data-tip='Get share link'>
+            <button className='btn  ml-6' onClick={createShareLink}>
+              <BsShareFill className=' text-2xl' />
+            </button>
+          </div>
           {/* Copy to clipboard top button */}
           <div className='tooltip' data-tip='Copy to clipboard'>
             <button className='btn  ml-6' onClick={saveToClipboard}>
@@ -111,6 +162,7 @@ function SnippetTemplate({ snippet }) {
         data-tip='Edit code'
       >
         <div className='max-h-[500px] overflow-auto  mb-4'>
+          {editorMode && <p className=' text-left my-1'>Snippet code:</p>}
           <CodeEditor
             disabled={editorMode ? false : true}
             className='code-editor bg-opacity-10 '

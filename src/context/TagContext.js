@@ -14,7 +14,6 @@ export const TagProvider = ({ children }) => {
     try {
       const tagsRes = await axios.get(`${server}/tags/all/${user.id}`);
       setTags(tagsRes.data);
-      console.log(tagsRes.data);
     } catch (error) {
       console.log(error);
     }
@@ -36,6 +35,7 @@ export const TagProvider = ({ children }) => {
   const deleteTag = async (id) => {
     try {
       await axios.delete(`${server}/tags/delete/${id}`).then(getTags());
+      getTags();
     } catch (error) {
       console.log(error);
     }

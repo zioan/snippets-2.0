@@ -44,8 +44,8 @@ function Auth() {
               {authToggle ? 'Login' : 'Register'}
             </h2>
             <p className=' mb-4 lg:mb-6'>
-              Snippets is a web application that allows managing and securely
-              storing your coding snippets.
+              Snippets is a web application designed to store code snippets,
+              fully responsive but designed mainly for large screens.
             </p>
             <p className='mb-4 lg:mb-0'>
               {authToggle ? 'No Account? ' : 'Already have an account? '}

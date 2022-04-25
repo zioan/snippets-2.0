@@ -6,6 +6,7 @@ import Home from './pages/Home';
 import NotFound from './pages/NotFound';
 import About from './pages/About';
 import Dashboard from './pages/Dashboard';
+import SharedSnippet from './components/snippets/SharedSnippet';
 
 axios.defaults.withCredentials = true;
 
@@ -20,6 +21,10 @@ function App() {
             <Route exact path='/' element={<Home />} />
             <Route path='/dashboard' element={<Dashboard />} />
             <Route path='/about' element={<About />} />
+            <Route
+              path='/shared/:user_name/:user_id/:snippet_id'
+              element={<SharedSnippet />}
+            />
 
             <Route path='/notfound' element={<NotFound />} />
             <Route path='/*' element={<NotFound />} />

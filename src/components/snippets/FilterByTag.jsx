@@ -1,8 +1,10 @@
 import { useContext, useState } from 'react';
+import AuthContext from '../../context/AuthContext';
 import TagContext from '../../context/TagContext';
 
 function FilterByTag({ sortByTag }) {
   const { tags } = useContext(TagContext);
+  const { user } = useContext(AuthContext);
   const [showTags, setShowTags] = useState(false);
   const [selectedTag, setSelectedTag] = useState('');
 
@@ -17,9 +19,11 @@ function FilterByTag({ sortByTag }) {
 
   return (
     <>
-      <button className='btn btn-success ' onClick={handlerToggler}>
-        {`Filter By Tag: ${selectedTag === '' ? 'All' : selectedTag}`}
-      </button>
+      {user && (
+        <button className='btn btn-success ' onClick={handlerToggler}>
+          {`Filter By Tag: ${selectedTag === '' ? 'All' : selectedTag}`}
+        </button>
+      )}
 
       {showTags && (
         <div className='mt-4'>

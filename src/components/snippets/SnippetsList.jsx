@@ -1,13 +1,13 @@
 import { useEffect, useContext, useState } from 'react';
 import SnippetContext from '../../context/SnippetContext';
 import TagContext from '../../context/TagContext';
-import FilterByTag from './FilterByTag';
+import Spinner from '../layout/Spinner';
 import SnippetTemplate from './SnippetTemplate';
 
 function SnippetsList() {
   const [searchQuery, setSeatchQuery] = useState('');
 
-  const { snippets, getSnippets } = useContext(SnippetContext);
+  const { snippets, getSnippets, loading } = useContext(SnippetContext);
   const { getTags, filteredTagValue } = useContext(TagContext);
 
   // Fetch snippets and tags on component load / reload
@@ -20,14 +20,15 @@ function SnippetsList() {
   let sorted = [...snippets];
   sorted = sorted.filter(
     (snippet) =>
-      (snippet.title.toLowerCase().includes(searchQuery) ||
-        snippet.tag.toLowerCase().includes(searchQuery) ||
-        snippet.code.toLowerCase().includes(searchQuery)) &&
-      snippet.tag.toLowerCase().includes(filteredTagValue)
+      (snippet.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        snippet.tag.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        snippet.code.toLowerCase().includes(searchQuery.toLowerCase())) &&
+      snippet.tag.toLowerCase().includes(filteredTagValue.toLowerCase())
   );
 
   return (
     <section className=' relative'>
+      {/* {loading && <Spinner />} */}
       {sorted.length < 1 && (
         <p className=' text-2xl text-center text-warning'>No Snippet found!</p>
       )}

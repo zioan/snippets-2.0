@@ -6,8 +6,6 @@ import AuthContext from './AuthContext';
 const UserContext = createContext();
 
 export const UserProvider = ({ children }) => {
-  // const [user, setUser] = useState(null);
-  const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
 
   const { getUser } = useContext(AuthContext);
@@ -21,7 +19,6 @@ export const UserProvider = ({ children }) => {
       const userRes = await axios.post(`${server}/users/login`, loginDetails);
       getUser();
       setError('');
-      console.log(userRes.data);
     } catch (error) {
       setError(error.response.data);
     }
