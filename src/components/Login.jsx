@@ -28,6 +28,7 @@ function Login() {
             <input
               type='text'
               placeholder='email'
+              required
               className='input input-bordered'
               value={email}
               onChange={(e) => setEmail(e.target.value)}
@@ -44,6 +45,7 @@ function Login() {
               placeholder='password'
               className='input input-bordered'
               value={password}
+              required
               onChange={(e) => setPassword(e.target.value)}
             />
             <label className='label'>

@@ -30,7 +30,7 @@ function SharedSnippet() {
       {user && (
         <div className='mt-10'>
           <h4 className=' text-xl'>
-            {user.name} logged in,{' '}
+            {user.name}, you are logged in,{' '}
             <Link className=' underline text-success mx-2' to='/dashboard'>
               go back to your dashboard
             </Link>

@@ -1,12 +1,11 @@
 import { useContext, useEffect, useState } from 'react';
 import CodeEditor from '@uiw/react-textarea-code-editor';
 import SnippetContext from '../../context/SnippetContext';
-import { BsTrash, BsShareFill } from 'react-icons/bs';
-import { FiEdit3, FiCopy, FiSave } from 'react-icons/fi';
+import { BsTrash } from 'react-icons/bs';
+import { FiEdit3, FiShare2, FiCopy, FiSave } from 'react-icons/fi';
 import TagContext from '../../context/TagContext';
 import AuthContext from '../../context/AuthContext';
 import NewTag from './NewTag';
-import server from '../../server';
 
 function SnippetTemplate({ snippet }) {
   const { updateSnippet, deleteSnippet, showEditWarning } =
@@ -145,7 +144,7 @@ function SnippetTemplate({ snippet }) {
           {/* Share button */}
           <div className='tooltip' data-tip='Get share link'>
             <button className='btn  ml-6' onClick={createShareLink}>
-              <BsShareFill className=' text-2xl' />
+              <FiShare2 className=' text-xl' />
             </button>
           </div>
           {/* Copy to clipboard top button */}
