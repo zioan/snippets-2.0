@@ -25,27 +25,29 @@ function FilterByTag({ sortByTag }) {
         </button>
       )}
 
-      {showTags && (
-        <div className='mt-4'>
-          <h4
-            className='badge p-4 cursor-pointer m-2'
-            onClick={() => handlerSortByTag('')}
-          >
-            All
-          </h4>
-          {tags.map((item) => {
-            return (
+      {user
+        ? showTags && (
+            <div className='mt-4'>
               <h4
-                key={item.id}
                 className='badge p-4 cursor-pointer m-2'
-                onClick={() => handlerSortByTag(item.tag)}
+                onClick={() => handlerSortByTag('')}
               >
-                {item.tag}
+                All
               </h4>
-            );
-          })}
-        </div>
-      )}
+              {tags.map((item) => {
+                return (
+                  <h4
+                    key={item.id}
+                    className='badge p-4 cursor-pointer m-2'
+                    onClick={() => handlerSortByTag(item.tag)}
+                  >
+                    {item.tag}
+                  </h4>
+                );
+              })}
+            </div>
+          )
+        : ''}
     </>
   );
 }
