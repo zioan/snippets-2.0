@@ -42,7 +42,7 @@ function Navbar() {
   }
 
   return (
-    <nav className="sticky top-0 left-0 z-50 flex flex-col px-0 pt-4 pb-0 shadow-lg  navbar bg-neutral text-neutral-content">
+    <nav className="sticky top-0 left-0 z-50 flex flex-col px-0 pt-4 pb-0 shadow-lg navbar bg-neutral text-neutral-content">
       <div className="container flex justify-between mx-auto mb-4">
         <div className="flex-none px-2 mx-2 ">
           <Link to="/" className="text-lg font-bold align-middle ">
@@ -53,7 +53,7 @@ function Navbar() {
         <div className="flex-1 px-2 mx-2 ">
           {/* Desktop menu */}
           <div className="flex justify-end gap-1">
-            <div className="hidden gap-2  md:flex">
+            <div className="hidden gap-2 md:flex">
               {!user && (
                 <NavLink to="/" className="btn btn-ghost btn-sm rounded-btn">
                   Home
@@ -62,16 +62,16 @@ function Navbar() {
 
               {/* Snippet editor warning (if snippet in editing mode) */}
               <div
-                className="inline  tooltip tooltip-left"
+                className="inline tooltip tooltip-left"
                 data-tip={'Snippet in editor mode'}
               >
                 {editWarning && (
-                  <MdWarningAmber className="mr-4 text-3xl cursor-pointer  text-warning" />
+                  <MdWarningAmber className="mr-4 text-3xl cursor-pointer text-warning" />
                 )}
               </div>
               {user && (
                 <NavLink to="/" className="btn btn-ghost btn-sm rounded-btn">
-                  Home
+                  Snippets
                 </NavLink>
               )}
               <NavLink to="/about" className="btn btn-ghost btn-sm rounded-btn">
@@ -117,19 +117,19 @@ function Navbar() {
 
               {/* Snippet editor warning (if snippet in editing mode) */}
               <div
-                className="inline  tooltip tooltip-left"
+                className="inline tooltip tooltip-left"
                 data-tip={'Snippet in editor mode'}
               >
                 {editWarning && (
-                  <MdWarningAmber className="mr-4 text-3xl cursor-pointer  text-warning" />
+                  <MdWarningAmber className="mr-4 text-3xl cursor-pointer text-warning" />
                 )}
               </div>
               {user && (
                 <NavLink
-                  to="/dashboard"
+                  to="/snippets"
                   className="btn btn-ghost btn-sm rounded-btn"
                 >
-                  Dashboard
+                  Snippets
                 </NavLink>
               )}
               <NavLink to="/about" className="btn btn-ghost btn-sm rounded-btn">

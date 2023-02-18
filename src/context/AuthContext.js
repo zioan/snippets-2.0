@@ -1,27 +1,27 @@
-import axios from 'axios';
-import React, { createContext, useEffect, useState } from 'react';
-import server from '../server';
+import axios from 'axios'
+import React, { createContext, useEffect, useState } from 'react'
+import server from '../server'
 
-const AuthContext = createContext();
+const AuthContext = createContext()
 
 function AuthProvider(props) {
-  const [user, setUser] = useState(undefined);
+  const [user, setUser] = useState(undefined)
 
   async function getUser() {
-    const userRes = await axios.get(`${server}/users/loggedin`);
-    setUser(userRes.data);
+    const userRes = await axios.get(`${server}/users/loggedin`)
+    setUser(userRes.data)
   }
 
   useEffect(() => {
-    getUser();
-  }, []);
+    getUser()
+  }, [])
 
   return (
     <AuthContext.Provider value={{ user, getUser }}>
       {props.children}
     </AuthContext.Provider>
-  );
+  )
 }
 
-export default AuthContext;
-export { AuthProvider };
+export default AuthContext
+export { AuthProvider }
