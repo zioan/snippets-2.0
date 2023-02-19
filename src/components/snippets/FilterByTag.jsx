@@ -1,6 +1,7 @@
 import { useContext, useState } from 'react'
 import AuthContext from '../../context/AuthContext'
 import TagContext from '../../context/TagContext'
+import Search from '../snippets/Search'
 
 function FilterByTag() {
   const { tags, updateFilteredTag } = useContext(TagContext)
@@ -20,16 +21,19 @@ function FilterByTag() {
   return (
     <>
       {user && (
-        <button className="btn btn-success " onClick={handlerToggler}>
-          {`Filter By Tag: ${selectedTag === '' ? 'All' : selectedTag}`}
-        </button>
+        <div className="flex items-center">
+          <Search />
+          <button className="btn btn-success " onClick={handlerToggler}>
+            {`Filter By Tag: ${selectedTag === '' ? 'All' : selectedTag}`}
+          </button>
+        </div>
       )}
 
       {user
         ? showTags && (
-            <div className="mt-4">
+            <div className="mt-0">
               <h4
-                className="p-4 m-2 cursor-pointer badge"
+                className="p-4 m-1 cursor-pointer badge"
                 onClick={() => handlerSortByTag('')}
               >
                 All
@@ -38,7 +42,7 @@ function FilterByTag() {
                 return (
                   <h4
                     key={item.id}
-                    className="p-4 m-2 cursor-pointer badge"
+                    className="p-4 m-1 cursor-pointer badge"
                     onClick={() => handlerSortByTag(item.tag)}
                   >
                     {item.tag}

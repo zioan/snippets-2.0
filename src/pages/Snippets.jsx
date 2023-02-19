@@ -2,12 +2,12 @@ import { useContext, useEffect, useRef } from 'react'
 import { useNavigate } from 'react-router-dom'
 import NewSnippet from '../components/snippets/NewSnippet'
 import NewTag from '../components/snippets/NewTag'
-import Search from '../components/snippets/Search'
 import AuthContext from '../context/AuthContext'
 import TagsEditor from '../components/snippets/TagsEditor'
 import { VscNewFile } from 'react-icons/vsc'
 import { BsTags } from 'react-icons/bs'
 import FilterByTag from '../components/snippets/FilterByTag'
+import SnippetsList from '../components/snippets/SnippetsList'
 
 function Dashboard() {
   const { user } = useContext(AuthContext)
@@ -34,9 +34,12 @@ function Dashboard() {
 
   return (
     <section>
+      {/* <FilterByTag /> */}
+
       <div className=" hidden bg-base-100  top-[64px] z-50 p-4 md:flex flex-col w-full items-center">
         <FilterByTag />
       </div>
+      {user && <SnippetsList />}
 
       {/* If user is logged in */}
       {user && (
@@ -118,9 +121,6 @@ function Dashboard() {
               </div>
             </div>
           </div>
-
-          {/* Snippets */}
-          <Search />
         </section>
       )}
     </section>

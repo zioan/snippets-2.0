@@ -7,6 +7,7 @@ const SnippetContext = createContext()
 
 export const SnippetProvider = ({ children }) => {
   const [snippets, setSnippets] = useState([])
+  const [searchedSnippets, setSearchedSnippets] = useState([])
   const [sharedSnippet, setSharedSnippet] = useState(null)
   const [editWarning, setEditWarning] = useState(false)
   const [loading, setLoading] = useState(false)
@@ -92,6 +93,10 @@ export const SnippetProvider = ({ children }) => {
     }
   }
 
+  const searchedSnippetsHandler = (results) => {
+    setSearchedSnippets(results)
+  }
+
   return (
     <SnippetContext.Provider
       value={{
@@ -105,6 +110,8 @@ export const SnippetProvider = ({ children }) => {
         deleteSnippet,
         sharedSnippet,
         getSharedSnippet,
+        searchedSnippetsHandler,
+        searchedSnippets,
       }}
     >
       {children}
