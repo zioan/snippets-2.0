@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react'
+import { useContext, useState, useEffect } from 'react'
 import AuthContext from '../../context/AuthContext'
 import TagContext from '../../context/TagContext'
 import Search from '../snippets/Search'
@@ -8,6 +8,10 @@ function FilterByTag() {
   const { user } = useContext(AuthContext)
   const [showTags, setShowTags] = useState(false)
   const [selectedTag, setSelectedTag] = useState('')
+
+  useEffect(() => {
+    updateFilteredTag('')
+  }, [])
 
   const handlerToggler = () => {
     setShowTags(!showTags)
