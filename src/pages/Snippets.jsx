@@ -7,6 +7,7 @@ import AuthContext from '../context/AuthContext'
 import TagsEditor from '../components/snippets/TagsEditor'
 import { VscNewFile } from 'react-icons/vsc'
 import { BsTags } from 'react-icons/bs'
+import FilterByTag from '../components/snippets/FilterByTag'
 
 function Dashboard() {
   const { user } = useContext(AuthContext)
@@ -33,7 +34,9 @@ function Dashboard() {
 
   return (
     <section>
-      {/* If user is not logged in */}
+      <div className=" hidden bg-base-100  top-[64px] z-50 p-4 md:flex flex-col w-full items-center">
+        <FilterByTag />
+      </div>
 
       {/* If user is logged in */}
       {user && (

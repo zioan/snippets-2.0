@@ -1,35 +1,35 @@
-import { useContext, useState } from 'react';
-import AuthContext from '../../context/AuthContext';
-import TagContext from '../../context/TagContext';
+import { useContext, useState } from 'react'
+import AuthContext from '../../context/AuthContext'
+import TagContext from '../../context/TagContext'
 
-function FilterByTag({ sortByTag }) {
-  const { tags } = useContext(TagContext);
-  const { user } = useContext(AuthContext);
-  const [showTags, setShowTags] = useState(false);
-  const [selectedTag, setSelectedTag] = useState('');
+function FilterByTag() {
+  const { tags, updateFilteredTag } = useContext(TagContext)
+  const { user } = useContext(AuthContext)
+  const [showTags, setShowTags] = useState(false)
+  const [selectedTag, setSelectedTag] = useState('')
 
   const handlerToggler = () => {
-    setShowTags(!showTags);
-  };
+    setShowTags(!showTags)
+  }
 
   const handlerSortByTag = (tag) => {
-    setSelectedTag(tag);
-    sortByTag(tag);
-  };
+    setSelectedTag(tag)
+    updateFilteredTag(tag)
+  }
 
   return (
     <>
       {user && (
-        <button className='btn btn-success ' onClick={handlerToggler}>
+        <button className="btn btn-success " onClick={handlerToggler}>
           {`Filter By Tag: ${selectedTag === '' ? 'All' : selectedTag}`}
         </button>
       )}
 
       {user
         ? showTags && (
-            <div className='mt-4'>
+            <div className="mt-4">
               <h4
-                className='badge p-4 cursor-pointer m-2'
+                className="p-4 m-2 cursor-pointer badge"
                 onClick={() => handlerSortByTag('')}
               >
                 All
@@ -38,18 +38,18 @@ function FilterByTag({ sortByTag }) {
                 return (
                   <h4
                     key={item.id}
-                    className='badge p-4 cursor-pointer m-2'
+                    className="p-4 m-2 cursor-pointer badge"
                     onClick={() => handlerSortByTag(item.tag)}
                   >
                     {item.tag}
                   </h4>
-                );
+                )
               })}
             </div>
           )
-        : ''}
+        : null}
     </>
-  );
+  )
 }
 
-export default FilterByTag;
+export default FilterByTag

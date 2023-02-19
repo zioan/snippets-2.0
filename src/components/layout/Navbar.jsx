@@ -5,9 +5,7 @@ import { FaCode, FaSun, FaMoon, FaBars } from 'react-icons/fa'
 import { CgClose } from 'react-icons/cg'
 import { MdWarningAmber } from 'react-icons/md'
 import AuthContext from '../../context/AuthContext'
-import FilterByTag from '../snippets/FilterByTag'
 import SnippetContext from '../../context/SnippetContext'
-import TagContext from '../../context/TagContext'
 
 function Navbar() {
   const [theme, setTheme] = useState(true)
@@ -15,7 +13,6 @@ function Navbar() {
   const { logoutUser } = useContext(UserContext)
   const { user } = useContext(AuthContext)
   const { editWarning } = useContext(SnippetContext)
-  const { updateFilteredTag } = useContext(TagContext)
 
   const navigate = useNavigate()
 
@@ -34,11 +31,6 @@ function Navbar() {
   const logoutUserHandler = () => {
     logoutUser()
     navigate('/')
-  }
-
-  // Sort by tag
-  const sortByTag = (tag) => {
-    updateFilteredTag(tag)
   }
 
   return (
@@ -157,10 +149,6 @@ function Navbar() {
             </div>
           </div>
         </div>
-      </div>
-      {/* Filter snippets by tag */}
-      <div className=" hidden bg-base-100  top-[64px] z-50 p-4 md:flex flex-col w-full items-center">
-        <FilterByTag sortByTag={sortByTag} />
       </div>
     </nav>
   )

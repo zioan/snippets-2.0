@@ -29,9 +29,6 @@ function SnippetsList() {
   return (
     <section className="relative ">
       {loading && <Spinner />}
-      {/* {sorted.length < 1 && (
-        <p className="text-2xl text-center text-warning">No Snippet found!</p>
-      )} */}
 
       {/* Search bar */}
       {!loading && (
