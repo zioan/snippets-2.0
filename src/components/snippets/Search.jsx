@@ -4,7 +4,7 @@ import TagContext from '../../context/TagContext'
 import Spinner from '../layout/Spinner'
 import SnippetTemplate from './SnippetTemplate'
 
-function SnippetsList() {
+function Search() {
   const [searchQuery, setSeatchQuery] = useState('')
 
   const { snippets, getSnippets, loading } = useContext(SnippetContext)
@@ -48,4 +48,4 @@ function SnippetsList() {
   )
 }
 
-export default SnippetsList
+export default Search

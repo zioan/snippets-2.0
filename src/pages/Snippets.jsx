@@ -2,7 +2,7 @@ import { useContext, useEffect, useRef } from 'react'
 import { useNavigate } from 'react-router-dom'
 import NewSnippet from '../components/snippets/NewSnippet'
 import NewTag from '../components/snippets/NewTag'
-import SnippetsList from '../components/snippets/SnippetsList'
+import Search from '../components/snippets/Search'
 import AuthContext from '../context/AuthContext'
 import TagsEditor from '../components/snippets/TagsEditor'
 import { VscNewFile } from 'react-icons/vsc'
@@ -120,7 +120,7 @@ function Dashboard() {
           </div>
 
           {/* Snippets */}
-          <SnippetsList />
+          <Search />
         </section>
       )}
     </section>
