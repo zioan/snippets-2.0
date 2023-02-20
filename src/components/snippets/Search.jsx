@@ -6,19 +6,10 @@ import Spinner from '../layout/Spinner'
 function Search() {
   const [searchQuery, setSeatchQuery] = useState('')
 
-  const {
-    snippets,
-    getSnippets,
-    searchedSnippetsHandler,
-    loading,
-  } = useContext(SnippetContext)
-  const { getTags, filteredTagValue } = useContext(TagContext)
-
-  // Fetch snippets and tags on component load / reload
-  useEffect(() => {
-    getSnippets()
-    getTags()
-  }, [])
+  const { snippets, searchedSnippetsHandler, loading } = useContext(
+    SnippetContext,
+  )
+  const { filteredTagValue } = useContext(TagContext)
 
   // Search functionality
   let sorted = [...snippets]
