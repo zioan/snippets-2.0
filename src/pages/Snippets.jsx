@@ -11,7 +11,7 @@ import SnippetContext from '../context/SnippetContext'
 import Spinner from '../components/layout/Spinner'
 
 function Dashboard() {
-  const leggedIn = () => waitForServerResponse()
+  const loggedIn = () => waitForServerResponse()
   const { loading } = useContext(SnippetContext)
 
   const snippetRef = useRef()
@@ -37,8 +37,8 @@ function Dashboard() {
           <FilterByTag />
         </div>
       )}
-      {leggedIn && <SnippetsList />}
-      {leggedIn && (
+      {loggedIn && <SnippetsList />}
+      {loggedIn && (
         <section>
           {/* Modal for new snippets */}
           {/* Button to open modal */}
