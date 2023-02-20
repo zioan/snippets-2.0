@@ -10,9 +10,9 @@ import SnippetContext from '../../context/SnippetContext'
 function Navbar() {
   const [theme, setTheme] = useState(true)
 
-  const { logoutUser } = useContext(UserContext)
   const { user } = useContext(AuthContext)
-  const { editWarning } = useContext(SnippetContext)
+  const { logoutUser } = useContext(UserContext)
+  const { setSnippets, editWarning } = useContext(SnippetContext)
 
   const navigate = useNavigate()
 
@@ -30,6 +30,7 @@ function Navbar() {
 
   const logoutUserHandler = () => {
     logoutUser()
+    setSnippets([])
     navigate('/')
   }
 
