@@ -48,7 +48,7 @@ function SnippetsList() {
   }, [isLoading, searchedSnippets, currentPage])
 
   return (
-    <div>
+    <div className="mt-[10rem]">
       {renderedData.map((snippet) => (
         <SnippetTemplate key={snippet.id} snippet={snippet} />
       ))}
