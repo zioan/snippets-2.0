@@ -5,11 +5,15 @@ import server from '../server'
 const AuthContext = createContext()
 
 function AuthProvider(props) {
-  const [user, setUser] = useState(undefined)
+  const [user, setUser] = useState(null)
 
   async function getUser() {
-    const userRes = await axios.get(`${server}/users/loggedin`)
-    setUser(userRes.data)
+    try {
+      const userRes = await axios.get(`${server}/users/loggedin`)
+      setUser(userRes.data)
+    } catch (error) {
+      console.error(error)
+    }
   }
 
   useEffect(() => {
