@@ -1,4 +1,4 @@
-import { useContext, useRef } from 'react'
+import { useContext, useEffect, useRef, useState } from 'react'
 import NewSnippet from '../components/snippets/NewSnippet'
 import NewTag from '../components/snippets/NewTag'
 import TagsEditor from '../components/snippets/TagsEditor'
@@ -13,6 +13,11 @@ import Spinner from '../components/layout/Spinner'
 function Dashboard() {
   const loggedIn = () => waitForServerResponse()
   const { loading } = useContext(SnippetContext)
+  const [isComponentLoading, setIsComponentLoading] = useState(true)
+
+  useEffect(() => {
+    setIsComponentLoading(false)
+  }, [])
 
   const snippetRef = useRef()
   const tagRef = useRef()
@@ -32,6 +37,7 @@ function Dashboard() {
   return (
     <section>
       {loading && <Spinner />}
+      {isComponentLoading && <Spinner />}
       {!loading && (
         <div className=" hidden bg-base-100  top-[64px] z-50 p-4 md:flex flex-col w-full items-center">
           <FilterByTag />
