@@ -32,14 +32,11 @@ function Register() {
 
     // register new user
     try {
-      await registerUser(name, email, password)
+      await registerUser(name, email, password).then(() =>
+        navigate('/snippets'),
+      )
     } catch (err) {
       console.log(err)
-    }
-
-    // After user successfuly register redirect to '/snippets'
-    if (user) {
-      navigate('/snippets')
     }
   }
 
