@@ -14,7 +14,6 @@ function Dashboard() {
   const leggedIn = waitForServerResponse()
 
   useEffect(() => {
-    console.log('effecr running')
     waitForServerResponse(() => navigate('/'))
   }, [])
 
