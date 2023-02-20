@@ -62,7 +62,10 @@ function Navbar() {
                 )}
               </div>
               {user && (
-                <NavLink to="/" className="btn btn-ghost btn-sm rounded-btn">
+                <NavLink
+                  to="/snippets"
+                  className="btn btn-ghost btn-sm rounded-btn"
+                >
                   Snippets
                 </NavLink>
               )}
