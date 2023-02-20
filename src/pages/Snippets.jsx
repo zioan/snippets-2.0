@@ -1,4 +1,4 @@
-import { useRef } from 'react'
+import { useContext, useRef } from 'react'
 import NewSnippet from '../components/snippets/NewSnippet'
 import NewTag from '../components/snippets/NewTag'
 import TagsEditor from '../components/snippets/TagsEditor'
@@ -7,9 +7,12 @@ import { BsTags } from 'react-icons/bs'
 import FilterByTag from '../components/snippets/FilterByTag'
 import SnippetsList from '../components/snippets/SnippetsList'
 import waitForServerResponse from '../helpers/checkForUser'
+import SnippetContext from '../context/SnippetContext'
+import Spinner from '../components/layout/Spinner'
 
 function Dashboard() {
   const leggedIn = () => waitForServerResponse()
+  const { loading } = useContext(SnippetContext)
 
   const snippetRef = useRef()
   const tagRef = useRef()
@@ -28,9 +31,12 @@ function Dashboard() {
 
   return (
     <section>
-      <div className=" hidden bg-base-100  top-[64px] z-50 p-4 md:flex flex-col w-full items-center">
-        <FilterByTag />
-      </div>
+      {loading && <Spinner />}
+      {!loading && (
+        <div className=" hidden bg-base-100  top-[64px] z-50 p-4 md:flex flex-col w-full items-center">
+          <FilterByTag />
+        </div>
+      )}
       {leggedIn && <SnippetsList />}
       {leggedIn && (
         <section>

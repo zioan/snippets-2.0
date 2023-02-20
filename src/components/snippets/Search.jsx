@@ -1,7 +1,6 @@
 import { useEffect, useContext, useState } from 'react'
 import SnippetContext from '../../context/SnippetContext'
 import TagContext from '../../context/TagContext'
-import Spinner from '../layout/Spinner'
 
 function Search() {
   const [searchQuery, setSeatchQuery] = useState('')
@@ -27,8 +26,6 @@ function Search() {
 
   return (
     <section className="relative ">
-      {loading && <Spinner />}
-
       {/* Search bar */}
       {!loading && (
         <div className=" w-full md:w-[80%] flex items-center justify-center gap-8 my-4">
