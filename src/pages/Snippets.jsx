@@ -1,21 +1,22 @@
-import { useContext, useEffect, useRef } from 'react'
+import { useEffect, useRef } from 'react'
 import { useNavigate } from 'react-router-dom'
 import NewSnippet from '../components/snippets/NewSnippet'
 import NewTag from '../components/snippets/NewTag'
-import AuthContext from '../context/AuthContext'
 import TagsEditor from '../components/snippets/TagsEditor'
 import { VscNewFile } from 'react-icons/vsc'
 import { BsTags } from 'react-icons/bs'
 import FilterByTag from '../components/snippets/FilterByTag'
 import SnippetsList from '../components/snippets/SnippetsList'
+import waitForServerResponse from '../helpers/checkForUser'
 
 function Dashboard() {
-  const { user } = useContext(AuthContext)
   const navigate = useNavigate()
+  const leggedIn = waitForServerResponse()
 
   useEffect(() => {
-    !user && navigate('/')
-  }, [user, navigate])
+    console.log('effecr running')
+    waitForServerResponse(() => navigate('/'))
+  }, [])
 
   const snippetRef = useRef()
   const tagRef = useRef()
@@ -34,15 +35,11 @@ function Dashboard() {
 
   return (
     <section>
-      {/* <FilterByTag /> */}
-
       <div className=" hidden bg-base-100  top-[64px] z-50 p-4 md:flex flex-col w-full items-center">
         <FilterByTag />
       </div>
-      {user && <SnippetsList />}
-
-      {/* If user is logged in */}
-      {user && (
+      {leggedIn && <SnippetsList />}
+      {leggedIn && (
         <section>
           {/* Modal for new snippets */}
           {/* Button to open modal */}
