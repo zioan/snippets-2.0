@@ -1,5 +1,4 @@
-import { useEffect, useRef } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useRef } from 'react'
 import NewSnippet from '../components/snippets/NewSnippet'
 import NewTag from '../components/snippets/NewTag'
 import TagsEditor from '../components/snippets/TagsEditor'
@@ -10,12 +9,7 @@ import SnippetsList from '../components/snippets/SnippetsList'
 import waitForServerResponse from '../helpers/checkForUser'
 
 function Dashboard() {
-  const navigate = useNavigate()
-  const leggedIn = waitForServerResponse()
-
-  useEffect(() => {
-    waitForServerResponse(() => navigate('/'))
-  }, [])
+  const leggedIn = () => waitForServerResponse()
 
   const snippetRef = useRef()
   const tagRef = useRef()

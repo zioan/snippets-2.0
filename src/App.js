@@ -7,10 +7,25 @@ import NotFound from './pages/NotFound'
 import About from './pages/About'
 import Snippets from './pages/Snippets'
 import SharedSnippet from './components/snippets/SharedSnippet'
+import { useContext, useEffect } from 'react'
+import TagContext from './context/TagContext'
+import SnippetContext from './context/SnippetContext'
+import AuthContext from './context/AuthContext'
 
 axios.defaults.withCredentials = true
 
 function App() {
+  const { user } = useContext(AuthContext)
+  const { getSnippets } = useContext(SnippetContext)
+  const { getTags } = useContext(TagContext)
+
+  useEffect(() => {
+    if (user) {
+      getSnippets()
+      getTags()
+    }
+  }, [user])
+
   return (
     <Router>
       <div className="flex flex-col justify-between min-h-screen">

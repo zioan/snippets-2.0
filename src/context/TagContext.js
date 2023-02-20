@@ -1,49 +1,50 @@
-import axios from 'axios';
-import { createContext, useContext, useState } from 'react';
-import server from '../server';
-import AuthContext from './AuthContext';
+import axios from 'axios'
+import { createContext, useContext, useState } from 'react'
+import server from '../server'
+import AuthContext from './AuthContext'
 
-const TagContext = createContext();
+const TagContext = createContext()
 
 export const TagProvider = ({ children }) => {
-  const [tags, setTags] = useState([]);
-  const [filteredTagValue, setFilteredTagValue] = useState('');
-  const { user } = useContext(AuthContext);
+  const [tags, setTags] = useState([])
+  const [filteredTagValue, setFilteredTagValue] = useState('')
+  const { user } = useContext(AuthContext)
 
   const getTags = async () => {
     try {
-      const tagsRes = await axios.get(`${server}/tags/all/${user.id}`);
-      setTags(tagsRes.data);
+      if (!user) return
+      const tagsRes = await axios.get(`${server}/tags/all/${user.id}`)
+      setTags(tagsRes.data)
     } catch (error) {
-      console.log(error);
+      console.log(error)
     }
-  };
+  }
 
   const newTag = async (tag) => {
     const newTag = {
       user_id: user.id,
       tag,
-    };
-    try {
-      await axios.post(`${server}/tags/add`, newTag);
-      getTags();
-    } catch (error) {
-      console.log(error);
     }
-  };
+    try {
+      await axios.post(`${server}/tags/add`, newTag)
+      getTags()
+    } catch (error) {
+      console.log(error)
+    }
+  }
 
   const deleteTag = async (id) => {
     try {
-      await axios.delete(`${server}/tags/delete/${id}`).then(getTags());
-      getTags();
+      await axios.delete(`${server}/tags/delete/${id}`).then(getTags())
+      getTags()
     } catch (error) {
-      console.log(error);
+      console.log(error)
     }
-  };
+  }
 
   const updateFilteredTag = (tag) => {
-    setFilteredTagValue(tag);
-  };
+    setFilteredTagValue(tag)
+  }
 
   return (
     <TagContext.Provider
@@ -58,7 +59,7 @@ export const TagProvider = ({ children }) => {
     >
       {children}
     </TagContext.Provider>
-  );
-};
+  )
+}
 
-export default TagContext;
+export default TagContext

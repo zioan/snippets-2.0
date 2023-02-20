@@ -15,8 +15,7 @@ export const SnippetProvider = ({ children }) => {
 
   const getSnippets = async () => {
     try {
-      // Needs to watch for updating bug ?!
-      // bug happening here !
+      if (!user) return
       setLoading(true)
       const snippetsRes = await axios.get(`${server}/snippets/all/${user.id}`)
       const sortedSnippetsByDate = await snippetsRes.data.sort((a, b) => {
@@ -101,6 +100,7 @@ export const SnippetProvider = ({ children }) => {
     <SnippetContext.Provider
       value={{
         snippets,
+        setSnippets,
         loading,
         getSnippets,
         newSnippet,
