@@ -41,7 +41,7 @@ function Search() {
             className="ml-[-70px] cursor-pointer"
             onClick={() => setSeatchQuery('')}
           >
-            <IoMdClose size={30} className=" fill-slate-300" />
+            <IoMdClose size={24} className=" fill-slate-300" />
           </button>
         </div>
       )}
