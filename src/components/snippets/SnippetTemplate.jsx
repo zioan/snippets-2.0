@@ -107,7 +107,7 @@ function SnippetTemplate({ snippet }) {
       <div className="flex justify-between ">
         {/* Snippet title not in edit mode */}
         {!editorMode && (
-          <h3 className="mb-4 text-xl font-bold border-b-2 border-b-slate-800">
+          <h3 className="mb-4 text-xl font-bold underline border-b-2 border-b-slate-800">
             {snippet.title}
           </h3>
         )}
