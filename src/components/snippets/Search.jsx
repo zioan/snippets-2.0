@@ -1,6 +1,7 @@
 import { useEffect, useContext, useState } from 'react'
 import SnippetContext from '../../context/SnippetContext'
 import TagContext from '../../context/TagContext'
+import { IoMdClose } from 'react-icons/io'
 
 function Search() {
   const [searchQuery, setSeatchQuery] = useState('')
@@ -25,18 +26,23 @@ function Search() {
   }, [snippets, searchQuery, filteredTagValue])
 
   return (
-    <section className="relative ">
+    <section className="relative w-[400px] md:w-[600px]">
       {/* Search bar */}
       {!loading && (
         <div className=" w-full md:w-[80%] flex items-center justify-center gap-8 my-4">
           <input
             type="text"
             placeholder="Search snippet..."
-            className="input input-bordered w-[400px] md:w-[600px]"
-            // className="input input-bordered w-full md:w-[80%] block mx-auto my-10 md:mt-10"
+            className="w-full input input-bordered"
             value={searchQuery}
             onChange={(e) => setSeatchQuery(e.target.value)}
           />
+          <button
+            className="ml-[-70px] cursor-pointer"
+            onClick={() => setSeatchQuery('')}
+          >
+            <IoMdClose size={30} className=" fill-slate-300" />
+          </button>
         </div>
       )}
     </section>
