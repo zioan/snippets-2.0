@@ -47,7 +47,10 @@ function FilterByTag() {
       {user && (
         <div className="flex items-center">
           <Search />
-          <button className="btn btn-success " onClick={handlerToggler}>
+          <button
+            className="btn btn-success w-[300px]"
+            onClick={handlerToggler}
+          >
             {`Filter By Tag: ${
               selectedTag === '' ? allTags : tagCount(selectedTag)
             }`}
