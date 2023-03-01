@@ -13,6 +13,7 @@ function SnippetTemplate({ snippet }) {
     updateSnippet,
     deleteSnippet,
     showEditWarning,
+    snippetRef,
     setSnippetRef,
   } = useContext(SnippetContext)
   const { tags } = useContext(TagContext)
@@ -25,7 +26,7 @@ function SnippetTemplate({ snippet }) {
   const [code, setCode] = useState('')
   const [error, setError] = useState('')
 
-  const snippetRef = useRef(null)
+  const currentSnippetRef = useRef(null)
 
   const saveToClipboard = () => navigator.clipboard.writeText(snippet.code)
 
@@ -38,8 +39,13 @@ function SnippetTemplate({ snippet }) {
   }, [editorMode])
 
   const editHandler = () => {
+    if (snippetRef !== null) {
+      window.alert('You are already editing a snippet!')
+      return
+    }
+
     setEditorMode(!editorMode)
-    setSnippetRef(snippetRef)
+    setSnippetRef(currentSnippetRef)
     setTitle(snippet.title)
     setTag(snippet.tag)
     setCode(snippet.code)
@@ -80,10 +86,7 @@ function SnippetTemplate({ snippet }) {
       code,
     }
     updateSnippet(snippetData)
-    setEditorMode(false)
-    setTitle('')
-    setTag('')
-    setCode('')
+    cancelHelper()
   }
 
   const deleteHandler = () => {
@@ -99,7 +102,7 @@ function SnippetTemplate({ snippet }) {
 
   return (
     <div
-      ref={snippetRef}
+      ref={currentSnippetRef}
       className={'p-4 md:p-10 mt-4 mb-8 bg-base-200 rounded-[16px] box-shadow'}
     >
       {editorMode && (
