@@ -3,6 +3,7 @@ import CodeEditor from '@uiw/react-textarea-code-editor'
 import SnippetContext from '../../context/SnippetContext'
 import { BsTrash } from 'react-icons/bs'
 import { FiEdit3, FiShare2, FiCopy, FiSave } from 'react-icons/fi'
+import { AiOutlineClose } from 'react-icons/ai'
 import TagContext from '../../context/TagContext'
 import AuthContext from '../../context/AuthContext'
 import NewTag from './NewTag'
@@ -23,14 +24,6 @@ function SnippetTemplate({ snippet }) {
 
   const saveToClipboard = () => navigator.clipboard.writeText(snippet.code)
 
-  // update state for snippet update
-  const editHandler = () => {
-    setEditorMode(!editorMode)
-    setTitle(snippet.title)
-    setTag(snippet.tag)
-    setCode(snippet.code)
-  }
-
   useEffect(() => {
     if (editorMode) {
       showEditWarning(true)
@@ -39,7 +32,34 @@ function SnippetTemplate({ snippet }) {
     }
   }, [editorMode])
 
-  // function for updating snippet
+  const editHandler = () => {
+    setEditorMode(!editorMode)
+    setTitle(snippet.title)
+    setTag(snippet.tag)
+    setCode(snippet.code)
+  }
+
+  const cancelHelper = () => {
+    setEditorMode(false)
+    setTitle('')
+    setTag('')
+    setCode('')
+  }
+
+  const cancelHandler = () => {
+    if (
+      tag !== snippet.tag ||
+      title !== snippet.title ||
+      code !== snippet.code
+    ) {
+      if (window.confirm('Do you want to discard changes?')) {
+        cancelHelper()
+      }
+    } else {
+      cancelHelper()
+    }
+  }
+
   const saveSnippet = () => {
     if (title.length < 1 || code.length < 1) {
       setError('Title or code snippet cannot be empty')
@@ -59,21 +79,18 @@ function SnippetTemplate({ snippet }) {
     setCode('')
   }
 
-  // delete snippet on confirm
   const deleteHandler = () => {
     if (window.confirm(`Are you sure you want to delete "${snippet.title}"?`)) {
       deleteSnippet(snippet.id)
     }
   }
 
-  //Create snippet share link
   const createShareLink = () => {
     const shareLink = `https://snippets.zioan.com/shared/${user.name}/${user.id}/${snippet.id}`
     navigator.clipboard.writeText(shareLink)
   }
 
   return (
-    // Handle both (snippet render from fetch) and (snippet update)
     <div
       className={'p-4 md:p-10 mt-4 mb-8 bg-base-200 rounded-[16px] box-shadow'}
     >
@@ -134,23 +151,64 @@ function SnippetTemplate({ snippet }) {
           {/* Show snippet tag NOT in edit mode */}
           {!editorMode && (
             <>
-              <div className="cursor-default tooltip" data-tip="Snippet tag">
+              <div
+                className="mr-4 cursor-default tooltip"
+                data-tip="Snippet tag"
+              >
                 <h4 className="p-4 badge ">{snippet.tag}</h4>
               </div>
             </>
           )}
 
-          {/* Share button */}
-          <div className="tooltip" data-tip="Get share link">
-            <button className="ml-6 btn" onClick={createShareLink}>
-              <FiShare2 className="text-xl " />
-            </button>
-          </div>
-          {/* Copy to clipboard top button */}
-          <div className="tooltip" data-tip="Copy to clipboard">
-            <button className="ml-6 btn" onClick={saveToClipboard}>
-              <FiCopy className="text-2xl " />
-            </button>
+          {/* New layout */}
+          <div className="flex">
+            {/* Edit / Save button */}
+            <div
+              className="inline tooltip"
+              data-tip={editorMode ? 'Save snippet' : 'Edit snippet'}
+            >
+              <button
+                className={editorMode ? 'btn text-success mr-1' : 'btn mr-1'}
+                onClick={editorMode ? saveSnippet : editHandler}
+              >
+                {editorMode ? (
+                  <FiSave className="text-2xl " />
+                ) : (
+                  <FiEdit3 className="text-2xl " />
+                )}
+              </button>
+            </div>
+
+            {/* Delete button */}
+            {!editorMode && (
+              <div className="tooltip" data-tip="Delete snippet">
+                <button className="mr-1 btn" onClick={deleteHandler}>
+                  <BsTrash className="text-2xl " />
+                </button>
+              </div>
+            )}
+            {/* Cancel button */}
+            {editorMode && (
+              <div className="tooltip" data-tip="Cancel">
+                <button className="mr-1 btn" onClick={cancelHandler}>
+                  <AiOutlineClose className="text-2xl " />
+                </button>
+              </div>
+            )}
+            {/* Share button */}
+            {!editorMode && (
+              <div className="tooltip" data-tip="Get share link">
+                <button className="mr-1 btn" onClick={createShareLink}>
+                  <FiShare2 className="text-xl " />
+                </button>
+              </div>
+            )}
+            {/* Copy to clipboard bottom button */}
+            <div className="inline tooltip" data-tip="Copy to clipboard">
+              <button className="mr-1 btn" onClick={saveToClipboard}>
+                <FiCopy className="text-2xl " />
+              </button>
+            </div>
           </div>
         </div>
       </div>
@@ -174,45 +232,6 @@ function SnippetTemplate({ snippet }) {
                 'ui-monospace,SFMono-Regular,SF Mono,Consolas,Liberation Mono,Menlo,monospace',
             }}
           />
-        </div>
-      </div>
-
-      {/* Bottom buttons */}
-      <div className="flex">
-        {/* Edit / Save button */}
-        <div
-          className="inline tooltip tooltip-bottom"
-          data-tip={editorMode ? 'Save snippet' : 'Edit snippet'}
-        >
-          <button
-            className={editorMode ? 'btn text-success mr-4' : 'btn mr-4'}
-            onClick={editorMode ? saveSnippet : editHandler}
-          >
-            {editorMode ? (
-              <FiSave className="text-2xl " />
-            ) : (
-              <FiEdit3 className="text-2xl " />
-            )}
-          </button>
-        </div>
-
-        {/* Delete button */}
-        {!editorMode && (
-          <div className="tooltip tooltip-bottom" data-tip="Delete snippet">
-            <button className="mr-4 btn" onClick={deleteHandler}>
-              <BsTrash className="text-2xl " />
-            </button>
-          </div>
-        )}
-
-        {/* Copy to clipboard bottom button */}
-        <div
-          className="inline tooltip tooltip-bottom"
-          data-tip="Copy to clipboard"
-        >
-          <button className="mr-4 btn" onClick={saveToClipboard}>
-            <FiCopy className="text-2xl " />
-          </button>
         </div>
       </div>
     </div>
