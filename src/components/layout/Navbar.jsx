@@ -17,7 +17,6 @@ function Navbar() {
   const navigate = useNavigate()
 
   const scrollToRef = (snippetRef) => {
-    console.log(snippetRef)
     window.scrollTo(0, snippetRef.current.offsetTop - 130)
   }
 
