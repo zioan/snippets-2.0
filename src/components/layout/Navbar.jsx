@@ -12,9 +12,14 @@ function Navbar() {
 
   const { user } = useContext(AuthContext)
   const { logoutUser } = useContext(UserContext)
-  const { setSnippets, editWarning } = useContext(SnippetContext)
+  const { setSnippets, snippetRef, editWarning } = useContext(SnippetContext)
 
   const navigate = useNavigate()
+
+  const scrollToRef = (snippetRef) => {
+    console.log(snippetRef)
+    window.scrollTo(0, snippetRef.current.offsetTop - 130)
+  }
 
   const changeTheme = () => {
     setTheme(!theme)
@@ -59,7 +64,10 @@ function Navbar() {
                 data-tip={'Snippet in editor mode'}
               >
                 {editWarning && (
-                  <MdWarningAmber className="mr-4 text-3xl cursor-pointer text-warning" />
+                  <MdWarningAmber
+                    className="mr-4 text-3xl cursor-pointer text-warning"
+                    onClick={() => scrollToRef(snippetRef)}
+                  />
                 )}
               </div>
               {user && (

@@ -10,6 +10,7 @@ export const SnippetProvider = ({ children }) => {
   const [searchedSnippets, setSearchedSnippets] = useState([])
   const [sharedSnippet, setSharedSnippet] = useState(null)
   const [editWarning, setEditWarning] = useState(false)
+  const [snippetRef, setSnippetRef] = useState(null)
   const [loading, setLoading] = useState(false)
   const { user } = useContext(AuthContext)
 
@@ -107,6 +108,8 @@ export const SnippetProvider = ({ children }) => {
         updateSnippet,
         editWarning,
         showEditWarning,
+        snippetRef,
+        setSnippetRef,
         deleteSnippet,
         sharedSnippet,
         getSharedSnippet,

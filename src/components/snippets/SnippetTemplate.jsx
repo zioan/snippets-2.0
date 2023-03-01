@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from 'react'
+import { useContext, useEffect, useState, useRef } from 'react'
 import CodeEditor from '@uiw/react-textarea-code-editor'
 import SnippetContext from '../../context/SnippetContext'
 import { BsTrash } from 'react-icons/bs'
@@ -9,9 +9,12 @@ import AuthContext from '../../context/AuthContext'
 import NewTag from './NewTag'
 
 function SnippetTemplate({ snippet }) {
-  const { updateSnippet, deleteSnippet, showEditWarning } = useContext(
-    SnippetContext,
-  )
+  const {
+    updateSnippet,
+    deleteSnippet,
+    showEditWarning,
+    setSnippetRef,
+  } = useContext(SnippetContext)
   const { tags } = useContext(TagContext)
   const { user } = useContext(AuthContext)
 
@@ -21,6 +24,8 @@ function SnippetTemplate({ snippet }) {
   const [tag, setTag] = useState('')
   const [code, setCode] = useState('')
   const [error, setError] = useState('')
+
+  const snippetRef = useRef(null)
 
   const saveToClipboard = () => navigator.clipboard.writeText(snippet.code)
 
@@ -34,6 +39,7 @@ function SnippetTemplate({ snippet }) {
 
   const editHandler = () => {
     setEditorMode(!editorMode)
+    setSnippetRef(snippetRef)
     setTitle(snippet.title)
     setTag(snippet.tag)
     setCode(snippet.code)
@@ -41,6 +47,7 @@ function SnippetTemplate({ snippet }) {
 
   const cancelHelper = () => {
     setEditorMode(false)
+    setSnippetRef(null)
     setTitle('')
     setTag('')
     setCode('')
@@ -92,6 +99,7 @@ function SnippetTemplate({ snippet }) {
 
   return (
     <div
+      ref={snippetRef}
       className={'p-4 md:p-10 mt-4 mb-8 bg-base-200 rounded-[16px] box-shadow'}
     >
       {editorMode && (
