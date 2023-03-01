@@ -6,13 +6,15 @@ import { CgClose } from 'react-icons/cg'
 import { MdWarningAmber } from 'react-icons/md'
 import AuthContext from '../../context/AuthContext'
 import SnippetContext from '../../context/SnippetContext'
+import GlobalContext from '../../context/GlobalContext'
 
 function Navbar() {
-  const [theme, setTheme] = useState(true)
+  const [darkTheme, setDarkTheme] = useState(true)
 
   const { user } = useContext(AuthContext)
   const { logoutUser } = useContext(UserContext)
   const { setSnippets, snippetRef, editWarning } = useContext(SnippetContext)
+  const { setAppTheme } = useContext(GlobalContext)
 
   const navigate = useNavigate()
 
@@ -21,9 +23,14 @@ function Navbar() {
   }
 
   const changeTheme = () => {
-    setTheme(!theme)
-    theme && document.documentElement.setAttribute('data-theme', 'light')
-    !theme && document.documentElement.setAttribute('data-theme', 'dark')
+    setDarkTheme(!darkTheme)
+    if (darkTheme) {
+      document.documentElement.setAttribute('data-theme', 'light')
+      setAppTheme('light')
+    } else {
+      document.documentElement.setAttribute('data-theme', 'dark')
+      setAppTheme('dark')
+    }
   }
 
   const [toggled, setToggled] = useState(false)
@@ -93,7 +100,7 @@ function Navbar() {
                 onClick={changeTheme}
                 className="text-xl btn btn-ghost btn-sm rounded-btn"
               >
-                {theme ? <FaMoon /> : <FaSun />}
+                {darkTheme ? <FaSun /> : <FaMoon />}
               </button>
             </div>
 
@@ -155,7 +162,7 @@ function Navbar() {
                 }}
                 className="text-xl btn btn-ghost btn-sm rounded-btn"
               >
-                {theme ? <FaMoon /> : <FaSun />}
+                {darkTheme ? <FaSun /> : <FaMoon />}
               </button>
             </div>
           </div>
