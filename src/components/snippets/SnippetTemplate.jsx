@@ -6,6 +6,7 @@ import { FiEdit3, FiShare2, FiCopy, FiSave } from 'react-icons/fi'
 import { AiOutlineClose } from 'react-icons/ai'
 import TagContext from '../../context/TagContext'
 import AuthContext from '../../context/AuthContext'
+import GlobalContext from '../../context/GlobalContext'
 import NewTag from './NewTag'
 
 function SnippetTemplate({ snippet }) {
@@ -109,7 +110,7 @@ function SnippetTemplate({ snippet }) {
   return (
     <div
       ref={currentSnippetRef}
-      className={'p-4 md:p-10 mt-4 mb-8 bg-base-200 rounded-[16px] box-shadow'}
+      className={'p-4 md:p-6 mt-4 mb-8 rounded-[20px] border-y-[1px]'}
     >
       {editorMode && (
         <>
@@ -141,9 +142,12 @@ function SnippetTemplate({ snippet }) {
       <div className="flex justify-between ">
         {/* Snippet title not in edit mode */}
         {!editorMode && (
-          <h3 className="mb-4 text-xl font-bold underline border-b-2 border-b-slate-800">
-            {snippet.title}
-          </h3>
+          <div className="flex gap-1">
+            <div className="mr-4 cursor-default tooltip" data-tip="Snippet tag">
+              <h4 className="p-4 badge ">{snippet.tag}</h4>
+            </div>
+            <h3 className="text-xl font-bold underline">{snippet.title}</h3>
+          </div>
         )}
 
         {/* edit snippet */}
@@ -165,18 +169,6 @@ function SnippetTemplate({ snippet }) {
         )}
 
         <div className="flex items-center mb-4 ">
-          {/* Show snippet tag NOT in edit mode */}
-          {!editorMode && (
-            <>
-              <div
-                className="mr-4 cursor-default tooltip"
-                data-tip="Snippet tag"
-              >
-                <h4 className="p-4 badge ">{snippet.tag}</h4>
-              </div>
-            </>
-          )}
-
           {/* New layout */}
           <div className="flex">
             {/* Edit / Save button */}
@@ -234,7 +226,7 @@ function SnippetTemplate({ snippet }) {
         className={editorMode ? 'tooltip tooltip-left w-full  mr-6' : ''}
         data-tip="Edit code"
       >
-        <div className="max-h-[500px] overflow-auto  mb-4">
+        <div className="max-h-[500px] overflow-auto mb-4">
           {editorMode && <p className="my-1 text-left ">Snippet code:</p>}
           <CodeEditor
             disabled={editorMode ? false : true}
