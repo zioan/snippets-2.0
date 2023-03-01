@@ -18,6 +18,7 @@ function SnippetTemplate({ snippet }) {
   } = useContext(SnippetContext)
   const { tags } = useContext(TagContext)
   const { user } = useContext(AuthContext)
+  const { appTheme } = useContext(GlobalContext)
 
   // initialize state for snippet update
   const [editorMode, setEditorMode] = useState(false)
@@ -242,10 +243,12 @@ function SnippetTemplate({ snippet }) {
             onChange={(e) => setCode(e.target.value)}
             language="jsx"
             placeholder="Please enter your code."
-            padding={15}
+            padding={20}
             style={{
               fontFamily:
                 'ui-monospace,SFMono-Regular,SF Mono,Consolas,Liberation Mono,Menlo,monospace',
+              fontSize: 14,
+              backgroundColor: appTheme === 'dark' ? '#161B22' : '#3B4454',
             }}
           />
         </div>
