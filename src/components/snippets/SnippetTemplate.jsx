@@ -73,6 +73,10 @@ function SnippetTemplate({ snippet }) {
     }
   }
 
+  const scrollToRef = () => {
+    window.scrollTo(0, currentSnippetRef.current.offsetTop - 120)
+  }
+
   const saveSnippet = () => {
     if (title.length < 1 || code.length < 1) {
       setError('Title or code snippet cannot be empty')
@@ -87,6 +91,7 @@ function SnippetTemplate({ snippet }) {
     }
     updateSnippet(snippetData)
     cancelHelper()
+    scrollToRef()
   }
 
   const deleteHandler = () => {
