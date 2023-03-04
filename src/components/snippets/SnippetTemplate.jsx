@@ -40,6 +40,10 @@ function SnippetTemplate({ snippet }) {
     }
   }, [editorMode])
 
+  useEffect(() => {
+    setSnippetRef(null)
+  }, [])
+
   const editHandler = () => {
     if (snippetRef !== null) {
       window.alert('You are already editing a snippet!')

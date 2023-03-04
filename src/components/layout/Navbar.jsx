@@ -13,13 +13,49 @@ function Navbar() {
 
   const { user } = useContext(AuthContext)
   const { logoutUser } = useContext(UserContext)
-  const { setSnippets, snippetRef, editWarning } = useContext(SnippetContext)
+  const {
+    setSnippets,
+    snippetRef,
+    setSnippetRef,
+    editWarning,
+    setEditWarning,
+  } = useContext(SnippetContext)
   const { setAppTheme } = useContext(GlobalContext)
 
   const navigate = useNavigate()
 
   const scrollToRef = (snippetRef) => {
     window.scrollTo(0, snippetRef.current.offsetTop - 130)
+  }
+
+  const closeEditorHandler = () => {
+    setSnippetRef(null)
+    setEditWarning(false)
+  }
+
+  const checkEditorStatusBeforeLogOut = (e) => {
+    if (
+      window.confirm(
+        'You are editing a snippet, are you sure you want to discard any change?',
+      )
+    ) {
+      logoutUser()
+      setSnippets([])
+      navigate('/')
+      closeEditorHandler()
+    } else {
+      scrollToRef(snippetRef)
+    }
+  }
+
+  const preventPathChangeIfEditorIsOpen = (e) => {
+    if (snippetRef) {
+      e.preventDefault()
+      window.alert(
+        'You are editing a snippet. Please save or discard changes before navigating away.',
+      )
+      scrollToRef(snippetRef)
+    }
   }
 
   const changeTheme = () => {
@@ -39,17 +75,26 @@ function Navbar() {
     setToggled(!toggled)
   }
 
-  const logoutUserHandler = () => {
-    logoutUser()
-    setSnippets([])
-    navigate('/')
+  const logoutUserHandler = (e) => {
+    if (snippetRef) {
+      checkEditorStatusBeforeLogOut(e)
+    } else {
+      logoutUser()
+      setSnippets([])
+      navigate('/')
+      closeEditorHandler()
+    }
   }
 
   return (
     <nav className="sticky top-0 left-0 z-50 flex flex-col px-0 pt-4 pb-0 shadow-lg navbar bg-neutral text-neutral-content">
       <div className="container flex justify-between mx-auto mb-4">
         <div className="flex-none px-2 mx-2 ">
-          <Link to="/" className="text-lg font-bold align-middle ">
+          <Link
+            to="/"
+            onClick={preventPathChangeIfEditorIsOpen}
+            className="text-lg font-bold align-middle "
+          >
             <FaCode className="inline pr-2 text-3xl" />
             Snippets
           </Link>
@@ -84,7 +129,11 @@ function Navbar() {
                   Snippets
                 </NavLink>
               )}
-              <NavLink to="/about" className="btn btn-ghost btn-sm rounded-btn">
+              <NavLink
+                to="/about"
+                onClick={preventPathChangeIfEditorIsOpen}
+                className="btn btn-ghost btn-sm rounded-btn"
+              >
                 About
               </NavLink>
               {user && (
@@ -142,7 +191,11 @@ function Navbar() {
                   Snippets
                 </NavLink>
               )}
-              <NavLink to="/about" className="btn btn-ghost btn-sm rounded-btn">
+              <NavLink
+                to="/about"
+                onClick={preventPathChangeIfEditorIsOpen}
+                className="btn btn-ghost btn-sm rounded-btn"
+              >
                 About
               </NavLink>
               {user && (

@@ -107,6 +107,7 @@ export const SnippetProvider = ({ children }) => {
         newSnippet,
         updateSnippet,
         editWarning,
+        setEditWarning,
         showEditWarning,
         snippetRef,
         setSnippetRef,
