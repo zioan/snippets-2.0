@@ -123,7 +123,11 @@ function SnippetTemplate({ snippet }) {
   return (
     <div
       ref={currentSnippetRef}
-      className={'p-4 md:p-6 mt-4 mb-12 rounded-[20px] border-y-[1px]'}
+      className={
+        editorMode
+          ? 'p-4 md:p-6 mt-4 mb-12 rounded-[20px] border-y-[1px] bg-slate-600'
+          : 'p-4 md:p-6 mt-4 mb-12 rounded-[20px] border-y-[1px]'
+      }
     >
       {editorMode && (
         <>
