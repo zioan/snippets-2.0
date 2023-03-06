@@ -71,6 +71,7 @@ function SnippetTemplate({ snippet }) {
       title !== snippet.title ||
       code !== snippet.code
     ) {
+      scrollToRef()
       if (window.confirm('Do you want to discard changes?')) {
         cancelHelper()
       }
