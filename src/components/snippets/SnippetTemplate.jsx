@@ -46,6 +46,7 @@ function SnippetTemplate({ snippet }) {
 
   const editHandler = () => {
     if (snippetRef !== null) {
+      scrollToRef()
       window.alert('You are already editing a snippet!')
       return
     }
