@@ -51,10 +51,10 @@ function Navbar() {
   const preventPathChangeIfEditorIsOpen = (e) => {
     if (snippetRef) {
       e.preventDefault()
+      scrollToRef(snippetRef)
       window.alert(
         'You are editing a snippet. Please save or discard changes before navigating away.',
       )
-      scrollToRef(snippetRef)
     }
   }
 
