@@ -32,7 +32,7 @@ function SharedSnippet() {
         <div className="mt-10">
           <h4 className="text-xl ">
             {user.name}, you are logged in,{' '}
-            <Link className="mx-2 underline  text-success" to="/snippets">
+            <Link className="mx-2 underline text-success" to="/snippets">
               go back to your snippets
             </Link>
             .
@@ -51,7 +51,7 @@ function SharedSnippet() {
         <div className="my-10">
           <h4 className="text-2xl ">
             New to Snippets? Give it a try and
-            <Link className="mx-2 underline  text-success" to="/">
+            <Link className="mx-2 underline text-success" to="/">
               open your own account
             </Link>
             . It's free :&#41;
@@ -68,7 +68,7 @@ function SharedSnippet() {
             </h2>
             <div
               className="inline tooltip justify-self-end "
-              data-tip="Copy to clipboard"
+              data-tip="Copy code"
             >
               <button className="btn btn-success " onClick={saveToClipboard}>
                 <FiCopy className="text-2xl " />

@@ -218,7 +218,7 @@ function SnippetTemplate({ snippet }) {
               </div>
             )}
             {/* Copy to clipboard bottom button */}
-            <div className="inline tooltip" data-tip="Copy to clipboard">
+            <div className="inline tooltip" data-tip="Copy code">
               <button className="mr-1 btn" onClick={saveToClipboard}>
                 <FiCopy className="text-2xl " />
               </button>
