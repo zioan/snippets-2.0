@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState, useRef } from 'react'
 import CodeEditor from '@uiw/react-textarea-code-editor'
 import SnippetContext from '../../context/SnippetContext'
-import { BsTrash } from 'react-icons/bs'
+import { BsTrash, BsTags } from 'react-icons/bs'
 import { FiEdit3, FiShare2, FiCopy, FiSave } from 'react-icons/fi'
 import { AiOutlineClose } from 'react-icons/ai'
 import TagContext from '../../context/TagContext'
@@ -23,6 +23,7 @@ function SnippetTemplate({ snippet }) {
 
   // initialize state for snippet update
   const [editorMode, setEditorMode] = useState(false)
+  const [showEditTag, setShowEditTag] = useState(false)
   const [title, setTitle] = useState('')
   const [tag, setTag] = useState('')
   const [code, setCode] = useState('')
@@ -53,6 +54,7 @@ function SnippetTemplate({ snippet }) {
 
     setEditorMode(!editorMode)
     setSnippetRef(currentSnippetRef)
+    scrollToRef()
     setTitle(snippet.title)
     setTag(snippet.tag)
     setCode(snippet.code)
@@ -60,6 +62,7 @@ function SnippetTemplate({ snippet }) {
 
   const cancelHelper = () => {
     setEditorMode(false)
+    setShowEditTag(false)
     setSnippetRef(null)
     setTitle('')
     setTag('')
@@ -79,6 +82,10 @@ function SnippetTemplate({ snippet }) {
     } else {
       cancelHelper()
     }
+  }
+
+  const tagChangeHandler = () => {
+    setShowEditTag(!showEditTag)
   }
 
   const scrollToRef = () => {
@@ -124,25 +131,29 @@ function SnippetTemplate({ snippet }) {
           <p className="mb-6 text-2xl text-center text-success">Edit snippet</p>
 
           {/* Tag selector on snippet edit mode */}
-          <NewTag />
-          <p className="inline ">Snippet tag:</p>
-          <h4 className="p-4 m-2 badge">{tag}</h4>
-          {tags.length > 0 && (
-            <p className="mt-4 ">Click to change snippet tag: </p>
+          {showEditTag && (
+            <>
+              <NewTag />
+              <p className="inline ">Snippet tag:</p>
+              <h4 className="p-4 m-2 badge">{tag}</h4>
+              {tags.length > 0 && (
+                <p className="mt-4 ">Click to change snippet tag: </p>
+              )}
+              <div className="mb-4">
+                {tags.map((item) => {
+                  return (
+                    <h4
+                      key={item.id}
+                      className="p-4 m-2 cursor-pointer badge"
+                      onClick={() => setTag(item.tag)}
+                    >
+                      {item.tag}
+                    </h4>
+                  )
+                })}
+              </div>
+            </>
           )}
-          <div className="mb-4">
-            {tags.map((item) => {
-              return (
-                <h4
-                  key={item.id}
-                  className="p-4 m-2 cursor-pointer badge"
-                  onClick={() => setTag(item.tag)}
-                >
-                  {item.tag}
-                </h4>
-              )
-            })}
-          </div>
         </>
       )}
       <div className="flex justify-between ">
@@ -150,9 +161,9 @@ function SnippetTemplate({ snippet }) {
         {!editorMode && (
           <div className="flex gap-1">
             <div className="mr-4 cursor-default tooltip" data-tip="Snippet tag">
-              <h4 className="p-4 badge ">{snippet.tag}</h4>
+              <h4 className="p-4 badge">{snippet.tag}</h4>
             </div>
-            <h3 className="text-xl font-bold underline">{snippet.title}</h3>
+            <h3 className="text-xl font-bold underline ">{snippet.title}</h3>
           </div>
         )}
 
@@ -162,11 +173,10 @@ function SnippetTemplate({ snippet }) {
             className="w-full mb-4 mr-6 tooltip tooltip-left"
             data-tip="Edit title"
           >
-            <p className="mb-1 text-left ">Snippet title:</p>
             <input
               type="text"
               placeholder="Title"
-              className="w-full input input-bordered"
+              className="w-full mt-2 input input-bordered"
               value={editorMode ? title : snippet.title}
               onChange={(e) => setTitle(e.target.value)}
             />
@@ -210,6 +220,18 @@ function SnippetTemplate({ snippet }) {
                 </button>
               </div>
             )}
+            {/* Edit tag button */}
+            {editorMode && (
+              <div className="tooltip" data-tip="Edit snippet tag">
+                <button className="mr-1 btn" onClick={tagChangeHandler}>
+                  <BsTags className="text-2xl " />
+                </button>
+              </div>
+            )}
+
+            {/* Spacer */}
+            <div className="w-10"></div>
+
             {/* Share button */}
             {!editorMode && (
               <div className="tooltip" data-tip="Get share link">
@@ -233,7 +255,6 @@ function SnippetTemplate({ snippet }) {
         data-tip="Edit code"
       >
         <div className="max-h-[500px] overflow-auto mb-4">
-          {editorMode && <p className="my-1 text-left ">Snippet code:</p>}
           <CodeEditor
             disabled={editorMode ? false : true}
             className="code-editor bg-opacity-10 "
