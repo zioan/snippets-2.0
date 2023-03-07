@@ -11,6 +11,7 @@ import { useContext, useEffect } from 'react'
 import TagContext from './context/TagContext'
 import SnippetContext from './context/SnippetContext'
 import AuthContext from './context/AuthContext'
+import useNotification from './hooks/useNotification'
 
 axios.defaults.withCredentials = true
 
@@ -18,6 +19,7 @@ function App() {
   const { user } = useContext(AuthContext)
   const { getSnippets } = useContext(SnippetContext)
   const { getTags } = useContext(TagContext)
+  const { displayNotification } = useNotification()
 
   useEffect(() => {
     if (user) {
@@ -44,6 +46,7 @@ function App() {
             <Route path="/notfound" element={<NotFound />} />
             <Route path="/*" element={<NotFound />} />
           </Routes>
+          {displayNotification()}
         </main>
         <Footer />
       </div>
