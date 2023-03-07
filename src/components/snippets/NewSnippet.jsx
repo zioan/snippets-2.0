@@ -3,6 +3,7 @@ import SnippetContext from '../../context/SnippetContext'
 import TagContext from '../../context/TagContext'
 import CodeEditor from '@uiw/react-textarea-code-editor'
 import { FiSave } from 'react-icons/fi'
+import useNotification from '../../hooks/useNotification'
 
 function NewSnippet() {
   const [title, setTitle] = useState('')
@@ -10,6 +11,7 @@ function NewSnippet() {
   const [selectedTag, setSelectedTag] = useState('No tag')
   const [error, setError] = useState('')
   const [successMessage, setSuccessMessage] = useState('')
+  const { notificationHandler } = useNotification()
 
   const { newSnippet } = useContext(SnippetContext)
   const { tags } = useContext(TagContext)
@@ -36,8 +38,10 @@ function NewSnippet() {
       setInterval(() => {
         setSuccessMessage('')
       }, 4000)
+      notificationHandler({ type: 'success', message: 'Successfully saved' })
     } catch (error) {
       console.log(error)
+      notificationHandler({ type: 'error', message: 'Something went wrong' })
     }
   }
 

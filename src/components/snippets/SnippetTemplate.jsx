@@ -8,6 +8,7 @@ import TagContext from '../../context/TagContext'
 import AuthContext from '../../context/AuthContext'
 import GlobalContext from '../../context/GlobalContext'
 import NewTag from './NewTag'
+import useNotification from '../../hooks/useNotification'
 
 function SnippetTemplate({ snippet }) {
   const {
@@ -28,6 +29,7 @@ function SnippetTemplate({ snippet }) {
   const [tag, setTag] = useState('')
   const [code, setCode] = useState('')
   const [error, setError] = useState('')
+  const { notificationHandler } = useNotification()
 
   const currentSnippetRef = useRef(null)
 
@@ -107,17 +109,20 @@ function SnippetTemplate({ snippet }) {
     updateSnippet(snippetData)
     cancelHelper()
     scrollToRef()
+    notificationHandler({ type: 'success', message: 'Successfully saved' })
   }
 
   const deleteHandler = () => {
     if (window.confirm(`Are you sure you want to delete "${snippet.title}"?`)) {
       deleteSnippet(snippet.id)
+      notificationHandler({ type: 'warning', message: 'Snippet deleted' })
     }
   }
 
   const createShareLink = () => {
     const shareLink = `https://snippets.zioan.com/shared/${user.name}/${user.id}/${snippet.id}`
     navigator.clipboard.writeText(shareLink)
+    notificationHandler({ type: 'success', message: 'Link created' })
   }
 
   return (
