@@ -33,7 +33,10 @@ function SnippetTemplate({ snippet }) {
 
   const currentSnippetRef = useRef(null)
 
-  const saveToClipboard = () => navigator.clipboard.writeText(snippet.code)
+  const saveToClipboard = () => {
+    navigator.clipboard.writeText(snippet.code)
+    notificationHandler({ type: 'success', message: 'Copied!' })
+  }
 
   useEffect(() => {
     if (editorMode) {
@@ -80,9 +83,11 @@ function SnippetTemplate({ snippet }) {
       scrollToRef()
       if (window.confirm('Do you want to discard changes?')) {
         cancelHelper()
+        notificationHandler({ type: 'warning', message: 'Cancelled!' })
       }
     } else {
       cancelHelper()
+      notificationHandler({ type: 'warning', message: 'Cancelled!' })
     }
   }
 
