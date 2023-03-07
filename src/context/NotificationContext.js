@@ -9,7 +9,6 @@ export const NotificationProvider = ({ children }) => {
 
   const addNotification = (newNotification) => {
     setNotificationArray((prevState) => [...prevState, newNotification])
-    console.log('notification triggered')
     setTimeout(() => {
       setNotificationArray((prevState) =>
         prevState.filter(
