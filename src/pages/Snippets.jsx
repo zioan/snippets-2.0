@@ -35,14 +35,15 @@ function Dashboard() {
   }
 
   return (
-    <section>
+    <section className="self-center">
+      {/* <section className="overflow-y-scroll h-[calc(100vh-150px)] "> */}
       {loading && <Spinner />}
       {isComponentLoading && <Spinner />}
-      {!loading && (
+      {/* {!loading && (
         <div className=" hidden bg-base-100  top-[64px] z-50 p-4 md:flex flex-col w-full items-center fixed left-0">
           <FilterByTag />
         </div>
-      )}
+      )} */}
       {loggedIn && <SnippetsList />}
       {loggedIn && (
         <section>

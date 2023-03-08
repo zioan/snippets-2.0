@@ -41,8 +41,7 @@ function FilterByTag() {
   return (
     <>
       {user && (
-        <div className="flex items-center">
-          <Search />
+        <div className="flex justify-center mb-6">
           <button
             className="btn btn-success w-[300px]"
             onClick={handlerToggler}
@@ -56,7 +55,7 @@ function FilterByTag() {
 
       {user
         ? showTags && (
-            <div className="mt-0">
+            <div className="flex flex-wrap items-center gap-2">
               <h4
                 className="p-4 m-1 cursor-pointer badge"
                 onClick={() => handlerSortByTag('')}
@@ -67,7 +66,7 @@ function FilterByTag() {
                 return (
                   <h4
                     key={item.id}
-                    className="p-4 m-1 cursor-pointer badge"
+                    className="p-4 cursor-pointer badge"
                     onClick={() => handlerSortByTag(item.tag)}
                   >
                     {item.tag}
