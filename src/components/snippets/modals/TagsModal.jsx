@@ -15,7 +15,7 @@ function TagsModal() {
     <div>
       <label
         htmlFor="my-modal-2"
-        className="fixed z-20 btn btn-success btn-circle modal-button bottom-28 right-4"
+        className="btn btn-sm btn-circle modal-button"
       >
         <BsTags className="text-2xl " />
       </label>

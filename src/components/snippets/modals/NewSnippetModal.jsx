@@ -16,7 +16,7 @@ function NewSnippetModal() {
     <div>
       <label
         htmlFor="my-modal-1"
-        className="fixed z-20 btn btn-success btn-circle modal-button bottom-48 right-4"
+        className="btn btn-circle btn-sm modal-button"
       >
         <VscNewFile className="text-2xl " />
       </label>

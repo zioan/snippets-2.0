@@ -6,7 +6,11 @@ import { CgClose } from 'react-icons/cg'
 import { MdWarningAmber } from 'react-icons/md'
 import AuthContext from '../../context/AuthContext'
 import SnippetContext from '../../context/SnippetContext'
+import TagContext from '../../context/TagContext'
 import GlobalContext from '../../context/GlobalContext'
+import Search from '../snippets/Search'
+import NewSnippetModal from '../snippets/modals/NewSnippetModal'
+import TagsModal from '../snippets/modals/TagsModal'
 
 function Navbar() {
   const [darkTheme, setDarkTheme] = useState(true)
@@ -20,6 +24,7 @@ function Navbar() {
     editWarning,
     setEditWarning,
   } = useContext(SnippetContext)
+  const { updateFilteredTag } = useContext(TagContext)
   const { setAppTheme } = useContext(GlobalContext)
 
   const navigate = useNavigate()
@@ -80,6 +85,7 @@ function Navbar() {
       checkEditorStatusBeforeLogOut(e)
     } else {
       logoutUser()
+      updateFilteredTag('')
       setSnippets([])
       navigate('/')
       closeEditorHandler()
@@ -87,7 +93,7 @@ function Navbar() {
   }
 
   return (
-    <nav className="sticky top-0 left-0 z-50 flex flex-col px-0 pt-4 pb-0 shadow-lg navbar bg-neutral text-neutral-content">
+    <nav className="fixed top-0 left-0 z-50 flex flex-col w-full px-0 pt-4 pb-0 shadow-lg bg-neutral text-neutral-content">
       <div className="container flex justify-between mx-auto mb-4">
         <div className="flex-none px-2 mx-2 ">
           <Link
@@ -96,9 +102,25 @@ function Navbar() {
             className="text-lg font-bold align-middle "
           >
             <FaCode className="inline pr-2 text-3xl" />
-            Snippets
           </Link>
         </div>
+        {user && (
+          <div className="flex gap-4">
+            <Search />
+            <div
+              className="inline ml-8 tooltip tooltip-bottom"
+              data-tip={'Create new snippet'}
+            >
+              <NewSnippetModal />
+            </div>
+            <div
+              className="inline tooltip tooltip-bottom"
+              data-tip={'Tags editor'}
+            >
+              <TagsModal />
+            </div>
+          </div>
+        )}
         <div className="flex-1 px-2 mx-2 ">
           {/* Desktop menu */}
           <div className="flex justify-end gap-1">

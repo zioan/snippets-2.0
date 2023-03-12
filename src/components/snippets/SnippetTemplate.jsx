@@ -135,8 +135,8 @@ function SnippetTemplate({ snippet }) {
       ref={currentSnippetRef}
       className={
         editorMode
-          ? 'p-4 md:p-6 mt-4 mb-12 rounded-[20px] border-y-[1px] bg-slate-600'
-          : 'p-4 md:p-6 mt-4 mb-12 rounded-[20px] border-y-[1px]'
+          ? 'p-4 rounded-[20px] border-y-[1px] bg-base-300'
+          : 'p-4 rounded-[20px] border-y-[1px] bg-base-200'
       }
     >
       {editorMode && (
@@ -190,7 +190,7 @@ function SnippetTemplate({ snippet }) {
             <input
               type="text"
               placeholder="Title"
-              className="w-full mt-2 input input-bordered"
+              className="w-full input input-bordered"
               value={editorMode ? title : snippet.title}
               onChange={(e) => setTitle(e.target.value)}
             />
