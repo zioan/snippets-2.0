@@ -25,7 +25,7 @@ function Auth() {
 
   return (
     // Layout for authentication if user is not logged in
-    <div className="py-20 hero bg-base-200">
+    <div className="py-20 hero bg-base-200 mt-[150px]">
       {!user && (
         <div className="flex-col hero-content lg:gap-20 lg:flex-row-reverse">
           <div className="text-center lg:text-left">
