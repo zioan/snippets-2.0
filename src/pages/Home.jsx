@@ -8,7 +8,7 @@ function Home() {
   return (
     <>
       {!user && <Auth />}
-      {user && <p>More features are coming soon.</p>}
+      {user && <p className="mt-[200px]">More features are coming soon.</p>}
     </>
   )
 }
