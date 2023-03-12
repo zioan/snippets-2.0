@@ -104,8 +104,18 @@ function Navbar() {
         {user && (
           <div className="flex gap-4">
             <Search />
-            <NewSnippetModal />
-            <TagsModal />
+            <div
+              className="inline tooltip tooltip-bottom"
+              data-tip={'Create new snippet'}
+            >
+              <NewSnippetModal />
+            </div>
+            <div
+              className="inline tooltip tooltip-bottom"
+              data-tip={'Tags editor'}
+            >
+              <TagsModal />
+            </div>
           </div>
         )}
         <div className="flex-1 px-2 mx-2 ">
