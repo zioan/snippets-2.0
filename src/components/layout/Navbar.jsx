@@ -6,6 +6,7 @@ import { CgClose } from 'react-icons/cg'
 import { MdWarningAmber } from 'react-icons/md'
 import AuthContext from '../../context/AuthContext'
 import SnippetContext from '../../context/SnippetContext'
+import TagContext from '../../context/TagContext'
 import GlobalContext from '../../context/GlobalContext'
 import Search from '../snippets/Search'
 import NewSnippetModal from '../snippets/modals/NewSnippetModal'
@@ -23,6 +24,7 @@ function Navbar() {
     editWarning,
     setEditWarning,
   } = useContext(SnippetContext)
+  const { updateFilteredTag } = useContext(TagContext)
   const { setAppTheme } = useContext(GlobalContext)
 
   const navigate = useNavigate()
@@ -83,6 +85,7 @@ function Navbar() {
       checkEditorStatusBeforeLogOut(e)
     } else {
       logoutUser()
+      updateFilteredTag('')
       setSnippets([])
       navigate('/')
       closeEditorHandler()
