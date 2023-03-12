@@ -48,7 +48,7 @@ function SnippetsList() {
   }, [isLoading, searchedSnippets, currentPage])
 
   return (
-    <div className="mt-[10rem]">
+    <div className="mt-[100px] flex flex-col gap-10">
       {renderedData.map((snippet) => (
         <SnippetTemplate key={snippet.id} snippet={snippet} />
       ))}

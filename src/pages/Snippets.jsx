@@ -1,22 +1,25 @@
 import { Suspense } from 'react'
-
 import FilterByTag from '../components/snippets/FilterByTag'
 import SnippetsList from '../components/snippets/SnippetsList'
 import Spinner from '../components/layout/Spinner'
-import NewSnippetModal from '../components/snippets/modals/NewSnippetModal'
-import TagsModal from '../components/snippets/modals/TagsModal'
+import ScrollToTopButton from '../helpers/ScrollToTopButton'
 
 function Snippets() {
   return (
-    <section>
+    <section className="">
       <Suspense fallback={<Spinner />}>
-        <div className=" hidden bg-base-100  top-[64px] z-50 p-4 md:flex flex-col w-full items-center fixed left-0">
-          <FilterByTag />
+        <div className="grid grid-cols-4 gap-10">
+          <section className="col-span-1 ">
+            <div className="sticky top-[100px] left-0 ">
+              <FilterByTag />
+            </div>
+          </section>
+          <section className="col-span-3">
+            <SnippetsList />
+          </section>
         </div>
-        <SnippetsList />
-        <NewSnippetModal />
-        <TagsModal />
       </Suspense>
+      <ScrollToTopButton />
     </section>
   )
 }

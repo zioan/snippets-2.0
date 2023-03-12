@@ -30,10 +30,9 @@ function App() {
 
   return (
     <Router>
-      <div className="flex flex-col justify-between min-h-screen">
-        {/* <div className='min-h-screen'> */}
-        <Navbar className="row-start-1" />
-        <main className="container relative px-3 pb-12 mx-auto ">
+      <main className="flex flex-col justify-between min-h-screen">
+        <Navbar className="" />
+        <div className="container mx-auto">
           <Routes>
             <Route exact path="/" element={<Home />} />
             <Route path="/snippets" element={<Snippets />} />
@@ -47,9 +46,9 @@ function App() {
             <Route path="/*" element={<NotFound />} />
           </Routes>
           {displayNotification()}
-        </main>
+        </div>
         <Footer />
-      </div>
+      </main>
     </Router>
   )
 }

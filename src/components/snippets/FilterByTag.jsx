@@ -39,48 +39,39 @@ function FilterByTag() {
   }
 
   return (
-    <>
+    <div className="rounded-[20px] border-y-[1px] bg-base-200 p-4 mt-[100px]">
       {user && (
-        <div className="flex items-center">
-          <Search />
-          <button
-            className="btn btn-success w-[300px]"
-            onClick={handlerToggler}
-          >
+        <>
+          <p className="mb-4 text-xl">
             {`Filter By Tag: ${
               selectedTag === '' ? allTags : tagCount(selectedTag)
             }`}
-          </button>
-        </div>
+          </p>
+          <div className="mt-0">
+            <h4
+              className="p-4 m-1 cursor-pointer badge"
+              onClick={() => handlerSortByTag('')}
+            >
+              All ({totalSnippetsCount})
+            </h4>
+            {tags.map((item) => {
+              return (
+                <h4
+                  key={item.id}
+                  className="p-4 m-1 cursor-pointer badge"
+                  onClick={() => handlerSortByTag(item.tag)}
+                >
+                  {item.tag}
+                  <span className="ml-2">
+                    ({getSnippetsCountByTag(item.tag)})
+                  </span>
+                </h4>
+              )
+            })}
+          </div>
+        </>
       )}
-
-      {user
-        ? showTags && (
-            <div className="mt-0">
-              <h4
-                className="p-4 m-1 cursor-pointer badge"
-                onClick={() => handlerSortByTag('')}
-              >
-                All ({totalSnippetsCount})
-              </h4>
-              {tags.map((item) => {
-                return (
-                  <h4
-                    key={item.id}
-                    className="p-4 m-1 cursor-pointer badge"
-                    onClick={() => handlerSortByTag(item.tag)}
-                  >
-                    {item.tag}
-                    <span className="ml-2">
-                      ({getSnippetsCountByTag(item.tag)})
-                    </span>
-                  </h4>
-                )
-              })}
-            </div>
-          )
-        : null}
-    </>
+    </div>
   )
 }
 
