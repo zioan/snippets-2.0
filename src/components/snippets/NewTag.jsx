@@ -24,17 +24,19 @@ function NewTag() {
     <div className="mb-6">
       <h2>Create new tag</h2>
       <form onSubmit={submitHandler}>
-        <input
-          type="text"
-          placeholder="Enter tag name"
-          className="w-full max-w-xs input input-bordered"
-          value={tag}
-          onChange={(e) => setTag(e.target.value)}
-        />
+        <div className="flex gap-4 flex-nowrap">
+          <input
+            type="text"
+            placeholder="Enter tag name"
+            className="w-full max-w-xs input input-bordered"
+            value={tag}
+            onChange={(e) => setTag(e.target.value)}
+          />
 
-        <button type="submit" className="btn">
-          Save Tag
-        </button>
+          <button type="submit" className="btn">
+            Save Tag
+          </button>
+        </div>
 
         {error && <p className="text-red-400 ">{error}</p>}
       </form>
