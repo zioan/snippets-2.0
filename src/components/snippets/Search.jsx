@@ -5,7 +5,6 @@ import { uniq } from 'lodash'
 
 function Search() {
   const [searchQuery, setSeatchQuery] = useState('')
-  const [isFocused, setIsFocused] = useState(false)
   const { snippets, searchedSnippetsHandler } = useContext(SnippetContext)
   const { filteredTagValue } = useContext(TagContext)
   let sorted = [...snippets]
@@ -45,22 +44,8 @@ function Search() {
       : `Results: ${sorted.length}`
   }
 
-  const handleFocus = () => {
-    setIsFocused(true)
-  }
-
-  const handleBlur = () => {
-    if (searchQuery === '') {
-      setIsFocused(false)
-    }
-  }
-
   return (
-    <section
-      className={`${
-        isFocused ? 'w-[400px]' : 'w-[250px]'
-      } transition-all duration-300`}
-    >
+    <section className="w-[354px]">
       {/* Search bar */}
 
       <div className="flex items-center justify-center border-[1px] border-gray-500 rounded-lg">
@@ -70,8 +55,6 @@ function Search() {
           className="w-full h-8 input focus:outline-none focus:ring-0"
           value={searchQuery}
           onChange={(e) => setSeatchQuery(e.target.value)}
-          onFocus={handleFocus}
-          onBlur={handleBlur}
         />
         {searchQuery.length > 0 && (
           <p className="ml-2 cursor-default whitespace-nowrap w-min">
@@ -81,7 +64,6 @@ function Search() {
         <button
           className="cursor-pointer bg-"
           onClick={() => {
-            setIsFocused(false)
             setSeatchQuery('')
           }}
         >
