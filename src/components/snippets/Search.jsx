@@ -1,7 +1,6 @@
 import { useEffect, useContext, useState } from 'react'
 import SnippetContext from '../../context/SnippetContext'
 import TagContext from '../../context/TagContext'
-import { IoMdClose } from 'react-icons/io'
 import { uniq } from 'lodash'
 
 function Search() {
@@ -86,7 +85,7 @@ function Search() {
             setSeatchQuery('')
           }}
         >
-          <IoMdClose size={24} className="mx-2 bg-transparent fill-slate-300" />
+          <p className="mx-2 text-2xl">&times;</p>
         </button>
       </div>
     </section>
