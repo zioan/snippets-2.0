@@ -9,8 +9,12 @@ import SnippetContext from '../../context/SnippetContext'
 import TagContext from '../../context/TagContext'
 import GlobalContext from '../../context/GlobalContext'
 import Search from '../snippets/Search'
-import NewSnippetModal from '../snippets/modals/NewSnippetModal'
-import TagsModal from '../snippets/modals/TagsModal'
+import { ModalButton } from '../snippets/modals/Modal'
+import { VscNewFile } from 'react-icons/vsc'
+import { BsTags } from 'react-icons/bs'
+import NewTag from '../snippets/NewTag'
+import NewSnippet from '../snippets/NewSnippet'
+import TagsEditor from '../snippets/TagsEditor'
 
 function Navbar() {
   const [darkTheme, setDarkTheme] = useState(true)
@@ -102,13 +106,29 @@ function Navbar() {
               className="inline ml-3 tooltip tooltip-bottom"
               data-tip={'Create new snippet'}
             >
-              <NewSnippetModal />
+              {/* New Snippet Modal */}
+              <ModalButton
+                title={<VscNewFile className="text-2xl fill-accent" />}
+              >
+                <h3 className="mb-8 text-2xl text-center ">Add new snippet</h3>
+                <NewTag />
+                <NewSnippet />
+              </ModalButton>
             </div>
             <div
               className="inline tooltip tooltip-bottom"
               data-tip={'Tags editor'}
             >
-              <TagsModal />
+              {/* Tags editor modal */}
+              <ModalButton title={<BsTags className="text-2xl fill-accent" />}>
+                <h3 className="mb-8 text-2xl text-center ">Tags Editor</h3>
+                <NewTag />
+
+                <h4>Click tags to delete</h4>
+                <div className="flex flex-wrap gap-2 mt-4 ">
+                  <TagsEditor />
+                </div>
+              </ModalButton>
             </div>
           </div>
         )}
