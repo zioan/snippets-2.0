@@ -28,10 +28,12 @@ function FilterByTag() {
 
   const allTags = `All (${totalSnippetsCount})`
   const tagCount = (selectedTag) => {
-    const currentTagCount = snippetsCountByTag.find(
-      (item) => item.tag === selectedTag,
-    ).count
-    return `${selectedTag} (${currentTagCount})`
+    const tag = snippetsCountByTag.find((item) => item.tag === selectedTag)
+    if (tag) {
+      return `${selectedTag} (${tag.count})`
+    } else {
+      return `${selectedTag} (0)`
+    }
   }
 
   return (
