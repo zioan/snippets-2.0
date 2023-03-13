@@ -7,6 +7,10 @@ html {
   scroll-behavior: smooth;
 }
 
+button {
+  outline: none;
+}
+
 ::-webkit-scrollbar-thumb {
   background: #181b20;
   border-radius: 10px;
