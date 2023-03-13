@@ -1,5 +1,5 @@
 import { useState, useContext } from 'react'
-import { NavLink, useNavigate } from 'react-router-dom'
+import { NavLink, useNavigate, useLocation } from 'react-router-dom'
 import UserContext from '../../context/UserContext'
 import { FaSun, FaMoon, FaBars } from 'react-icons/fa'
 import { CgClose } from 'react-icons/cg'
@@ -32,6 +32,7 @@ function Navbar() {
   const { setAppTheme } = useContext(GlobalContext)
 
   const navigate = useNavigate()
+  const location = useLocation()
 
   const scrollToRef = (snippetRef) => {
     window.scrollTo(0, snippetRef.current.offsetTop - 130)
@@ -99,7 +100,7 @@ function Navbar() {
   return (
     <nav className="fixed top-0 left-0 z-50 flex flex-col w-full px-0 pt-4 pb-0 shadow-lg bg-neutral text-neutral-content">
       <div className="container flex justify-between mx-auto mb-4">
-        {user && (
+        {user && location.pathname === '/snippets' ? (
           <div className="flex gap-4">
             <Search />
             <div
@@ -131,7 +132,7 @@ function Navbar() {
               </ModalButton>
             </div>
           </div>
-        )}
+        ) : null}
         <div className="flex-1 px-2 mx-2 ">
           {/* Desktop menu */}
           <div className="flex justify-end gap-1">
