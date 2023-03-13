@@ -2,7 +2,7 @@ import { Suspense } from 'react'
 import FilterByTag from '../components/snippets/FilterByTag'
 import SnippetsList from '../components/snippets/SnippetsList'
 import Spinner from '../components/layout/Spinner'
-import ScrollToTopButton from '../helpers/ScrollToTopButton'
+import { ScrollToTopButton } from '../helpers/ScrollToTopButton'
 
 function Snippets() {
   return (
