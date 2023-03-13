@@ -6,13 +6,15 @@ function Login() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
 
-  const { login, error } = useContext(UserContext)
+  const { login, getUser, error } = useContext(UserContext)
   const navigate = useNavigate()
 
   const loginHandler = async (e) => {
     e.preventDefault()
     try {
-      await login(email, password).then(() => navigate('/snippets'))
+      await login(email, password)
+        .then(() => getUser())
+        .then(() => navigate('/snippets'))
     } catch (err) {
       console.log(err)
     }

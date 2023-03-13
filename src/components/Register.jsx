@@ -11,7 +11,7 @@ function Register() {
   const [showError, setShowError] = useState('')
 
   const { registerUser, error } = useContext(UserContext)
-  const { user } = useContext(AuthContext)
+  const { getUser } = useContext(AuthContext)
 
   const navigate = useNavigate()
 
@@ -32,9 +32,9 @@ function Register() {
 
     // register new user
     try {
-      await registerUser(name, email, password).then(() =>
-        navigate('/snippets'),
-      )
+      await registerUser(name, email, password)
+        .then(() => getUser())
+        .then(() => navigate('/snippets'))
     } catch (err) {
       console.log(err)
     }

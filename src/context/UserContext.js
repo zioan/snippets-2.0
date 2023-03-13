@@ -17,7 +17,6 @@ export const UserProvider = ({ children }) => {
     }
     try {
       await axios.post(`${server}/users/login`, loginDetails)
-      getUser()
       setError('')
     } catch (error) {
       setError(error.response.data)
@@ -32,7 +31,6 @@ export const UserProvider = ({ children }) => {
     }
     try {
       await axios.post(`${server}/users/register`, registerData)
-      getUser()
       setError('')
     } catch (error) {
       console.log(error)
@@ -51,7 +49,9 @@ export const UserProvider = ({ children }) => {
   }
 
   return (
-    <UserContext.Provider value={{ login, logoutUser, registerUser, error }}>
+    <UserContext.Provider
+      value={{ login, getUser, logoutUser, registerUser, error }}
+    >
       {children}
     </UserContext.Provider>
   )

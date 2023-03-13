@@ -6,7 +6,7 @@ import Register from '../Register'
 
 function Auth() {
   const [authToggle, setAuthToggle] = useState(true)
-  const { login, user } = useContext(UserContext)
+  const { login, user, getUser } = useContext(UserContext)
   const navigate = useNavigate()
 
   const changeAuthMode = () => {
@@ -17,7 +17,9 @@ function Auth() {
     const email = 'john@test.com'
     const password = 'asdasd123123'
     try {
-      await login(email, password).then(() => navigate('/snippets'))
+      await login(email, password)
+        .then(() => getUser())
+        .then(() => navigate('/snippets'))
     } catch (err) {
       console.log(err)
     }
