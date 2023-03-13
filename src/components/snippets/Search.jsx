@@ -6,6 +6,7 @@ import { uniq } from 'lodash'
 
 function Search() {
   const [searchQuery, setSeatchQuery] = useState('')
+  const [isFocused, setIsFocused] = useState(false)
   const { snippets, searchedSnippetsHandler } = useContext(SnippetContext)
   const { filteredTagValue } = useContext(TagContext)
   let sorted = [...snippets]
@@ -45,26 +46,45 @@ function Search() {
       : `Results: ${sorted.length}`
   }
 
+  const handleFocus = () => {
+    setIsFocused(true)
+  }
+
+  const handleBlur = () => {
+    if (searchQuery === '') {
+      setIsFocused(false)
+    }
+  }
+
   return (
-    <section className="w-auto min-w-[400px]">
+    <section
+      className={`${
+        isFocused ? 'w-[400px]' : 'w-[250px]'
+      } transition-all duration-300`}
+    >
       {/* Search bar */}
 
-      <div className=" w-full flex items-center justify-center border-[1px] border-gray-500 rounded-lg">
+      <div className="flex items-center justify-center border-[1px] border-gray-500 rounded-lg">
         <input
           type="text"
-          placeholder="Search snippet..."
+          placeholder="Search..."
           className="w-full h-8 input focus:outline-none focus:ring-0"
           value={searchQuery}
           onChange={(e) => setSeatchQuery(e.target.value)}
+          onFocus={handleFocus}
+          onBlur={handleBlur}
         />
         {searchQuery.length > 0 && (
-          <p className="cursor-default whitespace-nowrap w-min">
+          <p className="ml-2 cursor-default whitespace-nowrap w-min">
             {resultsCountString()}
           </p>
         )}
         <button
           className="cursor-pointer bg-"
-          onClick={() => setSeatchQuery('')}
+          onClick={() => {
+            setIsFocused(false)
+            setSeatchQuery('')
+          }}
         >
           <IoMdClose size={24} className="mx-2 bg-transparent fill-slate-300" />
         </button>

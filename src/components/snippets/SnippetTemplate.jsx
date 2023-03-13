@@ -133,11 +133,9 @@ function SnippetTemplate({ snippet }) {
   return (
     <div
       ref={currentSnippetRef}
-      className={
-        editorMode
-          ? 'p-4 rounded-[20px] border-y-[1px] bg-base-300'
-          : 'p-4 rounded-[20px] border-y-[1px] bg-base-200'
-      }
+      className={`${
+        editorMode ? 'bg-base-300' : 'bg-base-200'
+      } p-4 rounded-[20px] border-y-[1px] `}
     >
       {editorMode && (
         <>

@@ -17,7 +17,7 @@ function TagsModal() {
         htmlFor="my-modal-2"
         className="btn btn-sm btn-circle modal-button"
       >
-        <BsTags className="text-2xl " />
+        <BsTags className="text-2xl fill-accent" />
       </label>
 
       {/*  Put this part before </body> tag  */}

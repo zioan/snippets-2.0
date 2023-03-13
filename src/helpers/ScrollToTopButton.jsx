@@ -33,7 +33,7 @@ function ScrollToTopButton() {
       style={{ display: showButton ? 'block' : 'none' }}
       onClick={handleClick}
     >
-      <BsArrowUpCircleFill size={30} />
+      <BsArrowUpCircleFill size={30} className="fill-accent" />
     </button>
   )
 }

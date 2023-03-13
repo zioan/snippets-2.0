@@ -18,7 +18,7 @@ function NewSnippetModal() {
         htmlFor="my-modal-1"
         className="btn btn-circle btn-sm modal-button"
       >
-        <VscNewFile className="text-2xl " />
+        <VscNewFile className="text-2xl fill-accent" />
       </label>
 
       {/*  Put this part before </body> tag  */}
