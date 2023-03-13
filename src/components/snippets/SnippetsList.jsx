@@ -53,7 +53,7 @@ function SnippetsList() {
         <SnippetTemplate key={snippet.id} snippet={snippet} />
       ))}
       <div ref={containerRef} style={{ height: '10px' }}>
-        {isLoading && <div>Loading...</div>}
+        {/* {isLoading && <div>Loading...</div>} */}
       </div>
     </div>
   )
