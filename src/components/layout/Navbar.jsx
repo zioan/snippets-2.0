@@ -23,6 +23,7 @@ function Navbar() {
   const { logoutUser } = useContext(UserContext)
   const {
     setSnippets,
+    searchedSnippetsHandler,
     snippetRef,
     setSnippetRef,
     editWarning,
@@ -51,6 +52,7 @@ function Navbar() {
     ) {
       logoutUser()
       setSnippets([])
+      searchedSnippetsHandler([])
       navigate('/')
       closeEditorHandler()
     } else {
@@ -92,6 +94,7 @@ function Navbar() {
       logoutUser()
       updateFilteredTag('')
       setSnippets([])
+      searchedSnippetsHandler([])
       navigate('/')
       closeEditorHandler()
     }
