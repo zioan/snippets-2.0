@@ -107,7 +107,7 @@ function Navbar() {
           <div className="flex gap-4">
             <Search />
             <div
-              className="inline ml-3 tooltip tooltip-bottom"
+              className="items-center content-center inline pb-0 mb-0 ml-3 tooltip tooltip-bottom"
               data-tip={'Create new snippet'}
             >
               {/* New Snippet Modal */}

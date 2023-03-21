@@ -75,7 +75,7 @@ function NewSnippet() {
         </select>
 
         {/* Snippet code. react-textarea-code-editor component */}
-        <div className="overflow-auto max-h-96">
+        <div className="overflow-auto max-h-40">
           <label className="block">Code editor</label>
           <CodeEditor
             disabled={false}

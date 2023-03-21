@@ -67,7 +67,7 @@ function Search() {
             setSeatchQuery('')
           }}
         >
-          <p className="mx-2 text-2xl">&times;</p>
+          <p className="mx-2 mb-1 text-2xl">&times;</p>
         </button>
       </div>
     </section>
