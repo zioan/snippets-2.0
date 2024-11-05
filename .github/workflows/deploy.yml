@@ -33,3 +33,7 @@ jobs:
           password: ${{ secrets.FTP_PASSWORD }}
           local-dir: ./build/
           server-dir: /snippets.zioan.com/
+          protocol: ftps
+          port: 21
+          timeout: 60000
+          security: loose
