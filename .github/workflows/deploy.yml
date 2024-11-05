@@ -4,7 +4,7 @@ on:
   push:
     branches:
       - main
-  workflow_dispatch: # This enables manual triggering
+  workflow_dispatch:
 
 jobs:
   deploy:
@@ -33,3 +33,7 @@ jobs:
           password: ${{ secrets.FTP_PASSWORD }}
           local-dir: ./build/
           server-dir: /test/
+          protocol: ftp
+          port: 21
+          timeout: 120000 # Increased timeout
+          security: loose
