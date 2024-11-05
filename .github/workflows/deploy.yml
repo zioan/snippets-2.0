@@ -25,15 +25,16 @@ jobs:
         env:
           CI: false
 
-      - name: Deploy to Namecheap
-        uses: SamKirkland/FTP-Deploy-Action@v4.3.4
-        with:
-          server: ${{ secrets.FTP_SERVER }}
-          username: ${{ secrets.FTP_USERNAME }}
-          password: ${{ secrets.FTP_PASSWORD }}
-          local-dir: ./build/
-          server-dir: /snippets.zioan.com/
-          protocol: ftp
-          port: 21
-          timeout: 60000
-          security: loose
+      - name: Install git-ftp
+        run: sudo apt-get install git-ftp
+
+      - name: Deploy to FTP
+        run: |
+          git config git-ftp.url "ftp://${{ secrets.FTP_SERVER }}"
+          git config git-ftp.user "${{ secrets.FTP_USERNAME }}"
+          git config git-ftp.password "${{ secrets.FTP_PASSWORD }}"
+          git ftp init --force --remote-root "/snippets.zioan.com" ./build
+        env:
+          FTP_SERVER: ${{ secrets.FTP_SERVER }}
+          FTP_USERNAME: ${{ secrets.FTP_USERNAME }}
+          FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
