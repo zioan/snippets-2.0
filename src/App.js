@@ -25,7 +25,7 @@ function App() {
     if (user) {
       getSnippets();
       getTags();
-      console.log("User logged in test 2");
+      console.log("User logged in test 3");
     }
   }, [user]);
 
