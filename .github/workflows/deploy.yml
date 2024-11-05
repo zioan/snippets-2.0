@@ -1,9 +1,10 @@
-name: Deploy Frontend
+name: Deploy Frontend Manually
 
 on:
   push:
     branches:
       - main
+  workflow_dispatch: # This enables manual triggering
 
 jobs:
   deploy:
