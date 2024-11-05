@@ -25,15 +25,13 @@ jobs:
         env:
           CI: false
 
-      - name: Deploy to Namecheap
-        uses: SamKirkland/FTP-Deploy-Action@v4.3.4
+      - name: 📂 Sync files
+        uses: wei/wget@v1
         with:
-          server: ${{ secrets.FTP_SERVER }}
-          username: ${{ secrets.FTP_USERNAME }}
-          password: ${{ secrets.FTP_PASSWORD }}
-          local-dir: ./build/
-          server-dir: /test/
-          protocol: ftp
-          port: 21
-          timeout: 120000 # Increased timeout
-          security: loose
+          args: -O - "https://raw.githubusercontent.com/wei/wget/master/ftp-upload.sh" | bash -s --
+        env:
+          FTP_HOST: ${{ secrets.FTP_SERVER }}
+          FTP_USER: ${{ secrets.FTP_USERNAME }}
+          FTP_PASS: ${{ secrets.FTP_PASSWORD }}
+          LOCAL_DIR: build
+          REMOTE_DIR: /test
