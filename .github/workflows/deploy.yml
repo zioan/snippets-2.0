@@ -25,13 +25,12 @@ jobs:
         env:
           CI: false
 
-      - name: 📂 Sync files
-        uses: wei/wget@v1
+      - name: Deploy to Namecheap
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.4
         with:
-          args: -O - "https://raw.githubusercontent.com/wei/wget/master/ftp-upload.sh" | bash -s --
-        env:
-          FTP_HOST: ${{ secrets.FTP_SERVER }}
-          FTP_USER: ${{ secrets.FTP_USERNAME }}
-          FTP_PASS: ${{ secrets.FTP_PASSWORD }}
-          LOCAL_DIR: build
-          REMOTE_DIR: /test
+          server: premium244.web-hosting.com
+          username: snippetsfrontend@snippets.zioan.com
+          password: ${{ secrets.FTP_PASSWORD }}
+          local-dir: ./build/
+          server-dir: /test/
+          port: 21
