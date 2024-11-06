@@ -4,7 +4,7 @@ on:
   push:
     branches:
       - main
-  workflow_dispatch:
+  workflow_dispatch: # This enables manual triggering
 
 jobs:
   deploy:
@@ -28,9 +28,8 @@ jobs:
       - name: Deploy to Namecheap
         uses: SamKirkland/FTP-Deploy-Action@v4.3.4
         with:
-          server: premium244.web-hosting.com
-          username: snippetsfrontend@snippets.zioan.com
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
           local-dir: ./build/
-          server-dir: /test/
-          port: 21
+          server-dir: ./
