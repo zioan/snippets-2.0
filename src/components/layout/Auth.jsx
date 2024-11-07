@@ -19,8 +19,7 @@ function Auth() {
     try {
       await login(email, password)
         .then(() => getUser())
-        .then(() => navigate("/snippets"))
-        .then(() => console.log("Logged in as demo account"));
+        .then(() => navigate("/snippets"));
     } catch (err) {
       console.log(err);
     }
