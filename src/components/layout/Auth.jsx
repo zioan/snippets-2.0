@@ -43,8 +43,10 @@ function Auth() {
             {/* Switch text for components login / register */}
             <h2 className="mb-8 text-5xl font-bold ">{authToggle ? "Login" : "Register"}</h2>
             <p className="mb-4 lg:mb-6">
-              Snippets is a web application designed to save and share code snippets. This is still a work in progress, with features and improvements
-              added regularly. Check the demo account for a quick overview and the about page for more information.
+              Snippets is your personal code library - a modern web application designed to help developers organize, manage, and share code snippets
+              efficiently. Create a searchable collection of your most-used code blocks, complete with syntax highlighting and smart tagging for quick
+              retrieval. Optimized for desktop use, this tool focuses on providing the best code management experience on larger screens where
+              developers do most of their work.
             </p>
             <p className="mb-4 lg:mb-0">
               {authToggle ? "No Account? " : "Already have an account? "}
