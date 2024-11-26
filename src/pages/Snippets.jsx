@@ -1,24 +1,45 @@
-import { Suspense, useContext, useEffect } from 'react'
-import FilterByTag from '../components/snippets/FilterByTag'
-import SnippetsList from '../components/snippets/SnippetsList'
-import Spinner from '../components/layout/Spinner'
-import { ScrollToTopButton } from '../helpers/ScrollToTopButton'
-import AuthContext from '../context/AuthContext'
-import { useNavigate } from 'react-router-dom'
+import { Suspense, useContext, useEffect, useState } from "react";
+import FilterByTag from "../components/snippets/FilterByTag";
+import SnippetsList from "../components/snippets/SnippetsList";
+import Spinner from "../components/layout/Spinner";
+import { ScrollToTopButton } from "../helpers/ScrollToTopButton";
+import AuthContext from "../context/AuthContext";
+import { useNavigate } from "react-router-dom";
 
 function Snippets() {
-  const { user } = useContext(AuthContext)
-  const navigate = useNavigate()
-
-  const redirectToHome = async () => {
-    if (!user) {
-      navigate('/')
-    }
-  }
+  const { user } = useContext(AuthContext);
+  const [isLoading, setIsLoading] = useState(true);
+  const navigate = useNavigate();
 
   useEffect(() => {
-    redirectToHome()
-  }, [])
+    let timeoutId;
+
+    const checkAuth = () => {
+      if (!isLoading && !user) {
+        navigate("/");
+      }
+    };
+
+    if (user === null) {
+      // Wait for a short duration to allow the auth state to load
+      timeoutId = setTimeout(() => {
+        setIsLoading(false);
+        checkAuth();
+      }, 1000);
+    } else {
+      setIsLoading(false);
+    }
+
+    return () => {
+      if (timeoutId) {
+        clearTimeout(timeoutId);
+      }
+    };
+  }, [user, navigate, isLoading]);
+
+  if (isLoading) {
+    return <Spinner classes="mt-[100px]" />;
+  }
 
   return (
     <section className="">
@@ -38,7 +59,7 @@ function Snippets() {
       </Suspense>
       <ScrollToTopButton />
     </section>
-  )
+  );
 }
 
-export default Snippets
+export default Snippets;
