@@ -26,10 +26,7 @@ export function Modal({ isOpen, onClose, children }) {
         <div className="fixed top-0 left-0 bg-black bg-opacity-60 w-screen h-screen z-[9998] overflow-hidden">
           <div className="flex items-center justify-center w-full h-full overscroll-contain">
             <div className="relative w-full max-w-[600px] p-4 m-4 bg-base-200 rounded-2xl">
-              <button
-                className="absolute text-xl text-white top-2 right-4"
-                onClick={onClose}
-              >
+              <button id="close-modal-btn" className="absolute text-xl text-white top-2 right-4" onClick={onClose}>
                 &times;
               </button>
               <div className="px-3 py-6 text-left">{children}</div>

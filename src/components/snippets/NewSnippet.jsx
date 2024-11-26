@@ -30,20 +30,23 @@ function NewSnippet() {
     }
 
     try {
-      newSnippet(title, selectedTag, code)
-      setError('')
-      setTitle('')
-      setCode('')
-      setSuccessMessage('Snippet created')
+      await newSnippet(title, selectedTag, code);
+      setError("");
+      setTitle("");
+      setCode("");
+      setSuccessMessage("Snippet created");
       setInterval(() => {
-        setSuccessMessage('')
-      }, 4000)
-      notificationHandler({ type: 'success', message: 'Successfully saved' })
+        setSuccessMessage("");
+      }, 4000);
+      notificationHandler({ type: "success", message: "Successfully saved" });
+
+      // Close modal
+      document.getElementById("close-modal-btn").click();
     } catch (error) {
-      console.log(error)
-      notificationHandler({ type: 'error', message: 'Something went wrong' })
+      console.log(error);
+      notificationHandler({ type: "error", message: "Something went wrong" });
     }
-  }
+  };
 
   return (
     <div className="flex flex-col mb-4">
