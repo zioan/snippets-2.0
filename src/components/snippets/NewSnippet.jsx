@@ -1,32 +1,32 @@
-import { useState, useContext } from 'react'
-import SnippetContext from '../../context/SnippetContext'
-import TagContext from '../../context/TagContext'
-import CodeEditor from '@uiw/react-textarea-code-editor'
-import { FiSave } from 'react-icons/fi'
-import useNotification from '../../hooks/useNotification'
+import { useState, useContext } from "react";
+import SnippetContext from "../../context/SnippetContext";
+import TagContext from "../../context/TagContext";
+import CodeEditor from "@uiw/react-textarea-code-editor";
+import { FiSave } from "react-icons/fi";
+import useNotification from "../../hooks/useNotification";
 
 function NewSnippet() {
-  const [title, setTitle] = useState('')
-  const [code, setCode] = useState('')
-  const [selectedTag, setSelectedTag] = useState('No tag')
-  const [error, setError] = useState('')
-  const [successMessage, setSuccessMessage] = useState('')
-  const { notificationHandler } = useNotification()
+  const [title, setTitle] = useState("");
+  const [code, setCode] = useState("");
+  const [selectedTag, setSelectedTag] = useState("No tag");
+  const [error, setError] = useState("");
+  const [successMessage, setSuccessMessage] = useState("");
+  const { notificationHandler } = useNotification();
 
-  const { newSnippet } = useContext(SnippetContext)
-  const { tags } = useContext(TagContext)
+  const { newSnippet } = useContext(SnippetContext);
+  const { tags } = useContext(TagContext);
 
-  const saveSnippetHandler = (e) => {
-    e.preventDefault()
+  const saveSnippetHandler = async (e) => {
+    e.preventDefault();
 
     if (title.length < 1) {
-      setError('Title cannot be empty')
-      return
+      setError("Title cannot be empty");
+      return;
     }
 
     if (code.length < 1) {
-      setError('Code cannot be empty')
-      return
+      setError("Code cannot be empty");
+      return;
     }
 
     try {
@@ -63,17 +63,13 @@ function NewSnippet() {
 
         {/* Snippet tag */}
         <label className="block">Select tag</label>
-        <select
-          className="w-full max-w-xs mb-4 select select-bordered"
-          onChange={(e) => setSelectedTag(e.target.value)}
-          value={selectedTag}
-        >
+        <select className="w-full max-w-xs mb-4 select select-bordered" onChange={(e) => setSelectedTag(e.target.value)} value={selectedTag}>
           {tags.map((tag) => {
             return (
               <option key={tag.id} value={tag.tag}>
                 {tag.tag}
               </option>
-            )
+            );
           })}
         </select>
 
@@ -89,24 +85,21 @@ function NewSnippet() {
             placeholder="Paste your code here"
             padding={15}
             style={{
-              fontFamily:
-                'ui-monospace,SFMono-Regular,SF Mono,Consolas,Liberation Mono,Menlo,monospace',
+              fontFamily: "ui-monospace,SFMono-Regular,SF Mono,Consolas,Liberation Mono,Menlo,monospace",
             }}
           />
         </div>
 
         {/* Display errors if empty fields */}
         {error && <p className="mt-4 text-center text-red-400 ">{error}</p>}
-        {successMessage && (
-          <p className="mt-4 text-center text-success">{successMessage}</p>
-        )}
+        {successMessage && <p className="mt-4 text-center text-success">{successMessage}</p>}
 
         <button className="mt-4 btn" type="submit">
           <FiSave className="text-2xl " />
         </button>
       </form>
     </div>
-  )
+  );
 }
 
-export default NewSnippet
+export default NewSnippet;

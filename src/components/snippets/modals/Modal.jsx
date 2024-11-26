@@ -1,24 +1,24 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState } from "react";
 
 export function Modal({ isOpen, onClose, children }) {
   useEffect(() => {
     const handleKeyDown = (e) => {
       if (e.keyCode === 27) {
-        onClose()
+        onClose();
       }
-    }
+    };
 
     if (isOpen) {
       // TODO prevent body to scroll when modal is open
-      document.addEventListener('keydown', handleKeyDown)
+      document.addEventListener("keydown", handleKeyDown);
     } else {
-      document.removeEventListener('keydown', handleKeyDown)
+      document.removeEventListener("keydown", handleKeyDown);
     }
 
     return () => {
-      document.removeEventListener('keydown', handleKeyDown)
-    }
-  }, [isOpen, onClose])
+      document.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [isOpen, onClose]);
 
   return (
     <>
@@ -35,14 +35,14 @@ export function Modal({ isOpen, onClose, children }) {
         </div>
       )}
     </>
-  )
+  );
 }
 
 export function ModalButton({ title, children }) {
-  const [isOpen, setIsOpen] = useState(false)
+  const [isOpen, setIsOpen] = useState(false);
 
-  const handleOpen = () => setIsOpen(true)
-  const handleClose = () => setIsOpen(false)
+  const handleOpen = () => setIsOpen(true);
+  const handleClose = () => setIsOpen(false);
 
   return (
     <>
@@ -51,5 +51,5 @@ export function ModalButton({ title, children }) {
         {children}
       </Modal>
     </>
-  )
+  );
 }
